@@ -12,20 +12,25 @@
     	<main>
 	
     	</main>
-		<section>	
+		<section class="sign-in">	
 			<input id="mail" class= "mail" type="email" placeholder="Ingresa tu correo">
 			<input id="password" class= "password" type="password" placeholder="Ingresa tu contraseña">
-			<button onclick="ingresar()">Go Travel</button>
+			<button class="sign-in-button">Go Travel</button>
+			<p>New Traveler?</p>
+			<button class="sign-up-button">Sign Up</button>
 		</section>
 
-		<section>	
-				<input id="nameSignUp" class= "nombre_signUp" type="text" placeholder="Name">
-				<input id="dobSignUp" class= "dob_signUp" type="text" placeholder="DOB (date of birth">
-				<input id="countrySignUp" class= "country_signUp" type="text" placeholder="Country">
-				<input id="mailSignUp" class= "mailSignUp" type="email" placeholder="E-mail">
-				<input id="passwordSignUp" class= "passwordSignUp" type="password" placeholder="Password">
-				<button onclick="registrar()">Send</button>
-			</section>
+		<section class="sign-up">	
+			<input id="nameSignUp" class= "nombre_signUp" type="text" placeholder="Name">
+			<input id="dobSignUp" class= "dob_signUp" type="text" placeholder="DOB (date of birth">
+			<input id="countrySignUp" class= "country_signUp" type="text" placeholder="Country">
+			<input id="mailSignUp" class= "mailSignUp" type="email" placeholder="E-mail">
+			<input id="passwordSignUp" class= "passwordSignUp" type="password" placeholder="Password">
+			<button class="register-button">Send</button>
+		</section>
+
+		<section class="content">
+		</section>
 
 		<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
 		<script src="data.js"></script>

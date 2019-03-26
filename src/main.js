@@ -1,4 +1,15 @@
-const registrar = () => {
+
+
+const showSignUp = () =>{
+	const signUpForm = document.querySelector(".sign-up");
+	const signInForm = document.querySelector(".sign-in");
+
+	signUpForm.style.display = 'block';
+	signInForm.style.display = 'none';
+
+}
+
+const register = () => {
 	let email = document.querySelector("#mailSignUp").value;
 	let password = document.querySelector("#passwordSignUp").value;
 
@@ -8,44 +19,46 @@ const registrar = () => {
 	firebase.auth().createUserWithEmailAndPassword(email, password)
 	.catch(function(error) {
 		// Handle Errors here.
-		var errorCode = error.code;
-		var errorMessage = error.message;
+		let errorCode = error.code;
+		let errorMessage = error.message;
 		// ...
 		console.log(errorCode);
 		console.log(errorMessage);
 	  });
 };
 
-const ingresar = () => {
+const enter = () => {
 	let emailSignIn = document.querySelector("#mail").value;
 	let passwordSignIn = document.querySelector("#password").value;
 
 	console.log(emailSignIn);
 	console.log(passwordSignIn);
 
-	firebase.auth().signInWithEmailAndPassword(emailSignIn, passwordSignIn).catch(function(error) {
+	firebase.auth().signInWithEmailAndPassword(emailSignIn, passwordSignIn)
+	.catch(function(error) {
 		// Handle Errors here.
-		var errorCode = error.code;
-		var errorMessage = error.message;
+		let errorCode = error.code;
+		let errorMessage = error.message;
 		// ...
 		console.log(errorCode);
 		console.log(errorMessage);
 	  });
 }
 
-function observador () {
+const observador = () => {
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {
 			console.log("Existe Usuario activo")
+			showContent();
 		  // User is signed in.
-		  var displayName = user.displayName;
-		  var email = user.email;
+		  let displayName = user.displayName;
+		  let email = user.email;
 			console.log(user)
-		  var emailVerified = user.emailVerified;
-		  var photoURL = user.photoURL;
-		  var isAnonymous = user.isAnonymous;
-		  var uid = user.uid;
-		  var providerData = user.providerData;
+		  let emailVerified = user.emailVerified;
+		  let photoURL = user.photoURL;
+		  let isAnonymous = user.isAnonymous;
+		  let uid = user.uid;
+		  let providerData = user.providerData;
 		  // ...
 		} else {
 		  // User is signed out.
@@ -54,5 +67,33 @@ function observador () {
 		}
 	  });
 }
-
 observador();
+
+const showContent = () => {
+	let content = document.querySelector(".content");
+	content.innerHTML = `
+	<p>Welcome to WoTravel!</p>
+	<button class="sign-out-button">Sign Out</button>
+	`;
+	const signOutButton = document.querySelector(".sign-out-button");
+	signOutButton.addEventListener("click", close);
+}
+
+const close = () => {
+	firebase.auth().signOut()
+	.then(function(){
+		console.log("Saliendo... :)")
+	})
+	.catch(function(error){
+		console.log(error)
+	})
+}
+
+const signInButton = document.querySelector(".sign-in-button");
+signInButton.addEventListener("click", enter);
+
+const signUpButton = document.querySelector(".sign-up-button");
+signUpButton.addEventListener("click", showSignUp);
+
+const registerButton = document.querySelector(".register-button");
+registerButton.addEventListener("click", register);

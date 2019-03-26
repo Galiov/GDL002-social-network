@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Pacifico');
-* {
+/* {
     font-family: 'Pacifico', cursive;
     font-style: normal;
     font-weight: normal;
     font-size: 80px;
     line-height: normal;
     color: #FFFEFE;
-}
+}*/
 
 body {
     background: linear-gradient(201.19deg, #7A84B9 0%, #99A9FF 0.01%, #FFA7DC 49.69%, #894B70 100%);
@@ -14,4 +14,8 @@ body {
 
 h1 {
     text-align: center;
+}
+
+.sign-up{
+	display: none;
 }
