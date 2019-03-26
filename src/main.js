@@ -17,6 +17,7 @@ const register = () => {
 	firebase.auth().createUserWithEmailAndPassword(email, password)
 	.then(function(){
 		verification()
+
 	})
 	.catch(function(error) {
 		// Handle Errors here.
@@ -62,7 +63,7 @@ const observador = () => {
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {
 			console.log("Existe Usuario activo")
-			showContent();
+			showContent(user);
 		  // User is signed in.
 		  let displayName = user.displayName;
 		  let email = user.email;
@@ -83,14 +84,17 @@ const observador = () => {
 }
 observador();
 
-const showContent = () => {
+const showContent = (user) => {
+	let user1 = user;
 	let content = document.querySelector(".content");
-	content.innerHTML = `
-	<p>Welcome to WoTravel!</p>
-	<button class="sign-out-button">Sign Out</button>
-	`;
-	const signOutButton = document.querySelector(".sign-out-button");
-	signOutButton.addEventListener("click", close);
+		if (user1.emailVerified){
+		content.innerHTML = `
+		<p>Welcome to WoTravel!</p>
+		<button class="sign-out-button">Sign Out</button>
+		`;
+		const signOutButton = document.querySelector(".sign-out-button");
+		signOutButton.addEventListener("click", close);
+		}
 }
 
 const close = () => {
@@ -112,3 +116,8 @@ signUpButton.addEventListener("click", showSignUp);
 const registerButton = document.querySelector(".register-button");
 registerButton.addEventListener("click", register);
 
+/*	  let verificationMessage = document.querySelector(".sign-up");
+	  content.innerHTML = `
+	  <p>We sent a verification mail, please check to confirm</p>
+	`;
+	*/
