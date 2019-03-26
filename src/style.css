@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Pacifico');
-* {
+/* {
     font-family: 'Pacifico', cursive;
     font-style: normal;
     font-weight: normal;
     line-height: normal;
     color: #FFFEFE;
-}
+}*/
 
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
 body {
@@ -28,4 +28,9 @@ h1 {
 
 .camera {
     width: 3%;
+
+}
+
+.sign-up{
+	display: none;
 }
