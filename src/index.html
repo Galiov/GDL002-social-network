@@ -1,22 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css">
     <title>WoTravel</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <h1>WoTravel</h1>
-    <main>
+    <section class="welcome">
+        <input class="input" id="mail" type="email" placeholder="Ingresa tu correo">
+        <input class="input" id="password" type="password" placeholder="Ingresa tu contraseña">
+        <button onclick="registrar()">Go Travel</button>
 
-    </main>
 
-    <script src="main.js"></script>
+    </section>
+
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        let config = {
+            apiKey: "AIzaSyBzhTNR_z3SStj4ny9-g2nKIA6xB-67fRs",
+            authDomain: "usuarios-red-social-2862b.firebaseapp.com",
+            databaseURL: "https://usuarios-red-social-2862b.firebaseio.com",
+            projectId: "usuarios-red-social-2862b",
+            storageBucket: "usuarios-red-social-2862b.appspot.com",
+            messagingSenderId: "733890556218"
+        };
+        firebase.initializeApp(config);
+    </script>
     <script src="data.js"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>
