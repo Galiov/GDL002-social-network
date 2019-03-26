@@ -8,11 +8,13 @@
 }
 
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
-.welcome {
+body {
     background: linear-gradient(201.19deg, #7A84B9 0%, #99A9FF 0.01%, #FFA7DC 49.69%, #894B70 100%);
     background-size: cover;
     background-attachment: fixed;
 }
+
+.welcome {}
 
 h1 {
     text-align: center;
@@ -22,4 +24,8 @@ h1 {
 .input {
     height: 1cm;
     font-family: 'Roboto Mono', monospace;
+}
+
+.camera {
+    width: 3%;
 }
