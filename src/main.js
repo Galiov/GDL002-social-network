@@ -8,24 +8,37 @@ const showSignUp = () => {
 }
 
 const register = () => {
-    let email = document.querySelector("#mailSignUp").value;
-    let password = document.querySelector("#passwordSignUp").value;
+    let email = document.querySelector(".mailSignUp").value;
+    let password = document.querySelector(".passwordSignUp").value;
 
     console.log(email);
     console.log(password);
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(function() {
+            verification()
+        })
         .catch(function(error) {
             // Handle Errors here.
             let errorCode = error.code;
             let errorMessage = error.message;
             // ...
+            console.log(errorCode);
+            console.log(errorMessage);
+        });
+
+    admin.auth().getUserByEmail(email)
+        .then(function(userRecord) {
+            console.log("Successfully fetched user data:", userRecord());
+        })
+        .catch(function(error) {
+            console.log("Error fetching user data:", error);
         });
 };
 
 const enter = () => {
-    let emailSignIn = document.querySelector("#mail").value;
-    let passwordSignIn = document.querySelector("#password").value;
+    let emailSignIn = document.querySelector(".mail").value;
+    let passwordSignIn = document.querySelector(".password").value;
 
     console.log(emailSignIn);
     console.log(passwordSignIn);
@@ -41,6 +54,18 @@ const enter = () => {
         });
 }
 
+const verification = () => {
+    let user = firebase.auth().currentUser;
+    user.sendEmailVerification().then(function() {
+        // Email sent.
+        console.log("Enviando correo")
+    }).catch(function(error) {
+        // An error happened.
+        console.log(error)
+    });
+}
+
+
 const observador = () => {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -50,6 +75,7 @@ const observador = () => {
             let displayName = user.displayName;
             let email = user.email;
             console.log(user)
+            console.log(user.emailVerified)
             let emailVerified = user.emailVerified;
             let photoURL = user.photoURL;
             let isAnonymous = user.isAnonymous;

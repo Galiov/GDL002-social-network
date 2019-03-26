@@ -24,6 +24,10 @@ input {
     color: black;
 }
 
+.inputStart {
+    align-items: center;
+}
+
 .camera {
     width: 3%;
 }
