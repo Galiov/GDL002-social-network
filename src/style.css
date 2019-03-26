@@ -1,11 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Pacifico');
-/* {
+*{
     font-family: 'Pacifico', cursive;
-    font-style: normal;
-    font-weight: normal;
-    line-height: normal;
     color: #FFFEFE;
-}*/
+}
 
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
 body {
@@ -21,9 +18,10 @@ h1 {
     font-size: 80px;
 }
 
-.input {
+input {
     height: 1cm;
     font-family: 'Roboto Mono', monospace;
+    color: black;
 }
 
 .camera {

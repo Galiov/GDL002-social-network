@@ -8,8 +8,8 @@ const showSignUp = () =>{
 }
 
 const register = () => {
-	let email = document.querySelector("#mailSignUp").value;
-	let password = document.querySelector("#passwordSignUp").value;
+	let email = document.querySelector(".mailSignUp").value;
+	let password = document.querySelector(".passwordSignUp").value;
 
 	console.log(email);
 	console.log(password);
@@ -26,8 +26,8 @@ const register = () => {
 };
 
 const enter = () => {
-	let emailSignIn = document.querySelector("#mail").value;
-	let passwordSignIn = document.querySelector("#password").value;
+	let emailSignIn = document.querySelector(".mail").value;
+	let passwordSignIn = document.querySelector(".password").value;
 
 	console.log(emailSignIn);
 	console.log(passwordSignIn);
