@@ -14,36 +14,30 @@
     <main>
 
     </main>
-    <section class="welcome">
-        <input class="mail, input" type="email" placeholder="Ingresa tu correo">
-        <input class="password, input" type="password" placeholder="Ingresa tu contraseña">
-        <button onclick="registrar()">Go Travel</button>
+    <section class="sign-in">
+        <input id="mail" class="mail" type="email" placeholder="Ingresa tu correo">
+        <input id="password" class="password" type="password" placeholder="Ingresa tu contraseña">
+        <button class="sign-in-button">Go Travel</button>
+        <p>New Traveler?</p>
+        <button class="sign-up-button">Sign Up</button>
     </section>
 
-    <section class="signUp">
-        <input type="text" placeholder="Name">
-        <input type="text" placeholder="DOB (date of birth)">
-        <input type="text" placeholder="Country">
-        <input type="text" placeholder="ID">
+    <section class="sign-up">
+        <input id="nameSignUp" class="nombre_signUp" type="text" placeholder="Name">
+        <input id="dobSignUp" class="dob_signUp" type="text" placeholder="DOB (date of birth">
+        <input id="countrySignUp" class="country_signUp" type="text" placeholder="Country">
+        <input class="input" type="text" placeholder="ID">
         <img class="camera" src="https://files.slack.com/files-pri/T0NNB6T0R-FH7DYJVEJ/images.jpeg" alt="">
-        <input type="email" placeholder="Mail">
-        <input type="password" placeholder="password">
-        <input type="password" placeholder="Confirm password">
+        <input id="mailSignUp" class="mailSignUp" type="email" placeholder="E-mail">
+        <input id="passwordSignUp" class="passwordSignUp" type="password" placeholder="Password">
+        <input class="input" type="password" placeholder="Confirm password">
+        <button class="register-button">Send</button>
+    </section>
+
+    <section class="content">
     </section>
 
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
-    <script>
-        // Initialize Firebase
-        let config = {
-            apiKey: "AIzaSyBzhTNR_z3SStj4ny9-g2nKIA6xB-67fRs",
-            authDomain: "usuarios-red-social-2862b.firebaseapp.com",
-            databaseURL: "https://usuarios-red-social-2862b.firebaseio.com",
-            projectId: "usuarios-red-social-2862b",
-            storageBucket: "usuarios-red-social-2862b.appspot.com",
-            messagingSenderId: "733890556218"
-        };
-        firebase.initializeApp(config);
-    </script>
     <script src="data.js"></script>
     <script src="main.js"></script>
 </body>
