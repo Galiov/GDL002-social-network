@@ -21,9 +21,10 @@ h1 {
     font-size: 80px;
 }
 
-.input {
+input {
     height: 1cm;
     font-family: 'Roboto Mono', monospace;
+    color: black;
 }
 
 .camera {
