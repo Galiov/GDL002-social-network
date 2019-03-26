@@ -15,6 +15,9 @@ const register = () => {
 	console.log(password);
 
 	firebase.auth().createUserWithEmailAndPassword(email, password)
+	.then(function(){
+		verification()
+	})
 	.catch(function(error) {
 		// Handle Errors here.
 		let errorCode = error.code;
@@ -43,6 +46,18 @@ const enter = () => {
 	  });
 }
 
+const verification = () => {
+	let user = firebase.auth().currentUser;
+	user.sendEmailVerification().then(function() {
+	  // Email sent.
+	  console.log("Enviando correo")
+	}).catch(function(error) {
+	  // An error happened.
+	  console.log(error)
+	});
+}
+
+
 const observador = () => {
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {
@@ -52,6 +67,7 @@ const observador = () => {
 		  let displayName = user.displayName;
 		  let email = user.email;
 			console.log(user)
+			console.log(user.emailVerified)
 		  let emailVerified = user.emailVerified;
 		  let photoURL = user.photoURL;
 		  let isAnonymous = user.isAnonymous;
