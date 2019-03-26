@@ -1,5 +1,3 @@
-
-
 const showSignUp = () =>{
 	const signUpForm = document.querySelector(".sign-up");
 	const signInForm = document.querySelector(".sign-in");
@@ -97,3 +95,4 @@ signUpButton.addEventListener("click", showSignUp);
 
 const registerButton = document.querySelector(".register-button");
 registerButton.addEventListener("click", register);
+
