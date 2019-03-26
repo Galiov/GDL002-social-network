@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Pacifico');
-*{
+* {
     font-family: 'Pacifico', cursive;
     color: #FFFEFE;
 }
@@ -24,10 +24,14 @@ input {
     color: black;
 }
 
+.inputStart {
+    align-items: center;
+}
+
 .camera {
     width: 3%;
 }
 
-.sign-up{
-	display: none;
+.sign-up {
+    display: none;
 }
