@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css?family=Pacifico');
 * {
     font-family: 'Pacifico', cursive;
@@ -6,9 +7,11 @@
 
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
 body {
+    margin: 0;
     background: linear-gradient(201.19deg, #7A84B9 0%, #99A9FF 0.01%, #FFA7DC 49.69%, #894B70 100%);
     background-size: cover;
     background-attachment: fixed;
+    display: flex;
 }
 
 .welcome {}
@@ -31,6 +34,7 @@ input {
 .camera {
     width: 3%;
 }
+
 
 .sign-up {
     display: none;
