@@ -1,4 +1,3 @@
-
 const showSignUp = () => {
     const signUpForm = document.querySelector(".sign-up");
     const signInForm = document.querySelector(".sign-in");
@@ -11,24 +10,24 @@ signUpButton.addEventListener("click", showSignUp);
 
 //Funcion para registrar usuarios nuevos
 const register = () => {
-	let email = document.querySelector(".mailSignUp").value;
-	let password = document.querySelector(".passwordSignUp").value;
+    let email = document.querySelector(".mailSignUp").value;
+    let password = document.querySelector(".passwordSignUp").value;
 
-	console.log(email);
-	console.log(password);
+    console.log(email);
+    console.log(password);
 
-	firebase.auth().createUserWithEmailAndPassword(email, password)
-	.then(function(){
-		verification()
-	})
-	.catch(function(error) {
-		// Handle Errors here.
-		let errorCode = error.code;
-		let errorMessage = error.message;
-		// ...
-		console.log(errorCode);
-		console.log(errorMessage);
-	  });
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(function() {
+            verification()
+        })
+        .catch(function(error) {
+            // Handle Errors here.
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            // ...
+            console.log(errorCode);
+            console.log(errorMessage);
+        });
 }
 const registerButton = document.querySelector(".register-button");
 registerButton.addEventListener("click", register);
@@ -123,16 +122,6 @@ const close = () => {
 }
 
 
-const signInButton = document.querySelector(".sign-in-button");
-signInButton.addEventListener("click", enter);
-
-const signUpButton = document.querySelector(".sign-up-button");
-signUpButton.addEventListener("click", showSignUp);
-
-const registerButton = document.querySelector(".register-button");
-registerButton.addEventListener("click", register);
-
-
 /*	  let verificationMessage = document.querySelector(".sign-up");
 	  content.innerHTML = `
 	  <p>We sent a verification mail, please check to confirm</p>
@@ -154,5 +143,17 @@ function post() {
         .catch(function(error) {
             console.error("Error adding document: ", error);
         });
-
 }
+document.querySelector(".buttonPost").addEventListener("click", post);
+
+//leer documentos
+const boxPost = document.querySelector(".boxPost");
+db.collection("userPost").onSnapshot((querySnapshot) => {
+    boxPost.innerHTML = "";
+    querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data().text}`);
+        boxPost.innerHTML += `
+        ${doc.data().text}
+        `
+    });
+});
