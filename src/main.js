@@ -26,7 +26,7 @@ const register = () => {
 		let errorCode = error.code;
 		let errorMessage = error.message;
 		// ...
-		console.log(errorCode);
+		alert(errorMessage);
 		console.log(errorMessage);
 	  });
 }
@@ -48,7 +48,7 @@ const enter = () => {
             let errorCode = error.code;
             let errorMessage = error.message;
             // ...
-            console.log(errorCode);
+            alert(errorMessage);
             console.log(errorMessage);
         });
 }
@@ -61,10 +61,11 @@ const verification = () => {
     let user = firebase.auth().currentUser;
     user.sendEmailVerification().then(function() {
         // Email sent.
+        alert("Te hemos enviado un código de verificación, por favor revisa tu bandeja para poder ingresar");
         console.log("Enviando correo")
+
     }).catch(function(error) {
         // An error happened.
-        console.log(error)
     });
 }
 
@@ -73,13 +74,13 @@ const observador = () => {
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-            console.log("Existe Usuario activo")
+            console.log("Existe Usuario activo");
             showContent(user);
             // User is signed in.
             let displayName = user.displayName;
             let email = user.email;
-            console.log(user)
-            console.log(user.emailVerified)
+            console.log(user);
+            console.log(user.emailVerified);
             let emailVerified = user.emailVerified;
             let photoURL = user.photoURL;
             let isAnonymous = user.isAnonymous;
@@ -88,7 +89,7 @@ const observador = () => {
             // ...
         } else {
             // User is signed out.
-            console.log("No existe usuario activo")
+            console.log("No existe usuario activo");
                 // ...
         }
     });
@@ -121,17 +122,6 @@ const close = () => {
             console.log(error)
         })
 }
-
-
-const signInButton = document.querySelector(".sign-in-button");
-signInButton.addEventListener("click", enter);
-
-const signUpButton = document.querySelector(".sign-up-button");
-signUpButton.addEventListener("click", showSignUp);
-
-const registerButton = document.querySelector(".register-button");
-registerButton.addEventListener("click", register);
-
 
 /*	  let verificationMessage = document.querySelector(".sign-up");
 	  content.innerHTML = `
