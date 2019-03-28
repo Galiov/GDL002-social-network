@@ -151,3 +151,17 @@ function post() {
 			console.error('Error adding document: ', error);
 		});
 }
+
+document.querySelector('.buttonPost').addEventListener('click', post);
+
+//leer documentos
+const boxPost = document.querySelector('.boxPost');
+db.collection('userPost').onSnapshot(querySnapshot => {
+	boxPost.innerHTML = '';
+	querySnapshot.forEach(doc => {
+		console.log(`${doc.id} => ${doc.data().text}`);
+		boxPost.innerHTML += `
+        ${doc.data().text}
+        `;
+	});
+});
