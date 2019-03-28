@@ -1,12 +1,19 @@
-const showSignUp = () => {
-	const signUpForm = document.querySelector('.sign-up');
-	const signInForm = document.querySelector('.sign-in');
+const signUpForm = document.querySelector('.sign-up');
+const signInForm = document.querySelector('.sign-in');
 
+const showSignUp = () => {
 	signUpForm.style.display = 'block';
 	signInForm.style.display = 'none';
 };
 const signUpButton = document.querySelector('.sign-up-button');
 signUpButton.addEventListener('click', showSignUp);
+
+const showSignIn = () => {
+	signInForm.style.display = 'block';
+	signUpForm.style.display = 'none';
+};
+const signInButton1 = document.querySelector('.sign-in-button1');
+signInButton1.addEventListener('click', showSignIn);
 
 //Funcion para registrar usuarios nuevos
 const register = () => {
@@ -20,7 +27,10 @@ const register = () => {
 		.auth()
 		.createUserWithEmailAndPassword(email, password)
 		.then(function() {
+			email.innerHTML = "";
+			password.innerHTML = "";
 			verification();
+			showSignIn();
 		})
 		.catch(function(error) {
 			// Handle Errors here.
@@ -38,9 +48,6 @@ registerButton.addEventListener('click', register);
 const enter = () => {
 	let emailSignIn = document.querySelector('.mail').value;
 	let passwordSignIn = document.querySelector('.password').value;
-
-	console.log(emailSignIn);
-	console.log(passwordSignIn);
 
 	firebase
 		.auth()
@@ -108,10 +115,25 @@ const showContent = user => {
 	if (user1.emailVerified) {
 		content.innerHTML = `
 		<p>Welcome to WoTravel!</p>
+		<input type="text" name="" id="" class="post" placeholder="New post" />
+		<button class="buttonPost">Post</button>
+		<textarea name="" id="post" cols="30" rows="10" class="boxPost"></textarea>
 		<button class="sign-out-button">Sign Out</button>
 		`;
 		const signOutButton = document.querySelector('.sign-out-button');
 		signOutButton.addEventListener('click', close);
+		document.querySelector('.buttonPost').addEventListener('click', post);
+
+		const boxPost = document.querySelector('.boxPost');
+		db.collection('userPost').onSnapshot(querySnapshot => {
+			boxPost.innerHTML = '';
+			querySnapshot.forEach(doc => {
+				console.log(`${doc.id} => ${doc.data().text}`);
+				boxPost.innerHTML += `
+        ${doc.data().text}
+        `;
+			});
+		});
 	}
 };
 
@@ -127,12 +149,6 @@ const close = () => {
 			console.log(error);
 		});
 };
-
-/*	  let verificationMessage = document.querySelector(".sign-up");
-	  content.innerHTML = `
-	  <p>We sent a verification mail, please check to confirm</p>
-	`;
-    */
 
 // Initialize Cloud Firestore through Firebase
 let db = firebase.firestore();
@@ -151,17 +167,3 @@ function post() {
 			console.error('Error adding document: ', error);
 		});
 }
-
-document.querySelector('.buttonPost').addEventListener('click', post);
-
-//leer documentos
-const boxPost = document.querySelector('.boxPost');
-db.collection('userPost').onSnapshot(querySnapshot => {
-	boxPost.innerHTML = '';
-	querySnapshot.forEach(doc => {
-		console.log(`${doc.id} => ${doc.data().text}`);
-		boxPost.innerHTML += `
-        ${doc.data().text}
-        `;
-	});
-});
