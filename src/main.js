@@ -27,8 +27,6 @@ const register = () => {
 		.auth()
 		.createUserWithEmailAndPassword(email, password)
 		.then(function() {
-			email.innerHTML = "";
-			password.innerHTML = "";
 			verification();
 			showSignIn();
 		})
