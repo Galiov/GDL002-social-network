@@ -113,14 +113,20 @@ const showContent = user => {
 	if (user1.emailVerified) {
 		content.innerHTML = `
 		<p>Welcome to WoTravel!</p>
+		<button class="profile-button">Profile</button>
+		<section class="user-profile"></section>
+		<br>
 		<input type="text" name="" id="" class="post" placeholder="New post" />
 		<button class="buttonPost">Post</button>
 		<textarea name="" id="post" cols="30" rows="10" class="boxPost"></textarea>
 		<button class="sign-out-button">Sign Out</button>
+
 		`;
 		const signOutButton = document.querySelector('.sign-out-button');
 		signOutButton.addEventListener('click', close);
+		//Función de botón para postear
 		document.querySelector('.buttonPost').addEventListener('click', post);
+		//Función de botón para guardar perfil
 
 		const boxPost = document.querySelector('.boxPost');
 		db.collection('userPost').onSnapshot(querySnapshot => {
@@ -132,8 +138,60 @@ const showContent = user => {
         `;
 			});
 		});
+		/*let profile = document.querySelector('.user-profile');
+		const showProfile = () => {
+			profile.innerHTML = `
+			<input type="text" class="profile-form name" placeholder="Name">
+			<input type="text" class="profile-form last-name" placeholder="Last Name">
+			<input type="text" class="profile-form dob" placeholder="DOB (Day Of Birth)">
+			`;
+		}
+		document.querySelector('.profile-button').addEventListener('click', showProfile);*/
 	}
 };
+
+// Initialize Cloud Firestore through Firebase
+let db = firebase.firestore();
+//agregar informacion
+const post = () => {
+	let posts = document.querySelector('.post').value;
+	db.collection('userPost')
+		.add({
+			text: posts,
+		})
+		.then(function(docRef) {
+			console.log('Document written with ID: ', docRef.id);
+			document.querySelector('.post').value = '';
+		})
+		.catch(function(error) {
+			console.error('Error adding document: ', error);
+		});
+};
+
+const saveProfile = () => {
+	let name = document.querySelector('.name').value;
+	let lastName = document.querySelector('.last-name').value;
+	let dob = document.querySelector('.dob').value;
+	let country = document.querySelector('.country').value;
+
+	db.collection('users-profile')
+		.add({
+			first: name,
+			last: lastName,
+			born: dob,
+			country: country,
+		})
+		.then(function(docRef) {
+			console.log('Document written with ID: ', docRef.id);
+			document.querySelector('.name').value = '';
+			document.querySelector('.last-name').value = '';
+			document.querySelector('.dob').value = '';
+		})
+		.catch(function(error) {
+			console.error('Error adding document: ', error);
+		});
+};
+document.querySelector('.register-button').addEventListener('click', saveProfile);
 
 //Funcion de boton para cerrar sesion
 const close = () => {
@@ -147,21 +205,3 @@ const close = () => {
 			console.log(error);
 		});
 };
-
-// Initialize Cloud Firestore through Firebase
-let db = firebase.firestore();
-//agregar informacion
-function post() {
-	let posts = document.querySelector('.post').value;
-	db.collection('userPost')
-		.add({
-			text: posts,
-		})
-		.then(function(docRef) {
-			console.log('Document written with ID: ', docRef.id);
-			document.querySelector('.post').value = '';
-		})
-		.catch(function(error) {
-			console.error('Error adding document: ', error);
-		});
-}
