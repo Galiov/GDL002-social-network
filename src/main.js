@@ -1,13 +1,11 @@
 const signUpForm = document.querySelector('.sign-up');
 const signInForm = document.querySelector('.sign-in');
-
 const showSignUp = () => {
 	signUpForm.style.display = 'block';
 	signInForm.style.display = 'none';
 };
 const signUpButton = document.querySelector('.sign-up-button');
 signUpButton.addEventListener('click', showSignUp);
-
 const showSignIn = () => {
 	signInForm.style.display = 'block';
 	signUpForm.style.display = 'none';
@@ -39,6 +37,7 @@ const register = () => {
 			console.log(errorMessage);
 		});
 };
+
 const registerButton = document.querySelector('.register-button');
 registerButton.addEventListener('click', register);
 
@@ -46,7 +45,6 @@ registerButton.addEventListener('click', register);
 const enter = () => {
 	let emailSignIn = document.querySelector('.mail').value;
 	let passwordSignIn = document.querySelector('.password').value;
-
 	firebase
 		.auth()
 		.signInWithEmailAndPassword(emailSignIn, passwordSignIn)
@@ -59,7 +57,6 @@ const enter = () => {
 			console.log(errorMessage);
 		});
 };
-
 const signInButton = document.querySelector('.sign-in-button');
 signInButton.addEventListener('click', enter);
 
@@ -117,45 +114,54 @@ const showContent = user => {
 		<section class="user-profile"></section>
 		<br>
 		<input type="text" name="" id="" class="post" placeholder="New post" />
-		<button class="buttonPost">Post</button>
-		<textarea name="" id="post" cols="30" rows="10" class="boxPost"></textarea>
-		<button class="sign-out-button">Sign Out</button>
+        <button class="buttonPost">Post</button>
+        <table class="tablePost my-3">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Post</th>
+                    <th scope="col">Eliminar</th>
+                    <th scope="col">Editar</th>
+                </tr>
+            </thead>
+            <tbody class="table"></tbody>
+        </table>
+        <button class="sign-out-button">Sign Out</button>
 
 		`;
 		const signOutButton = document.querySelector('.sign-out-button');
 		signOutButton.addEventListener('click', close);
 		//Función de botón para postear
 		document.querySelector('.buttonPost').addEventListener('click', post);
-		//Función de botón para guardar perfil
 
-		const boxPost = document.querySelector('.boxPost');
-		db.collection('userPost').onSnapshot(querySnapshot => {
-			boxPost.innerHTML = '';
+		let table = document.querySelector('.table');
+		db.collection('table').onSnapshot(querySnapshot => {
+			table.innerHTML = '';
 			querySnapshot.forEach(doc => {
 				console.log(`${doc.id} => ${doc.data().text}`);
-				boxPost.innerHTML += `
-        ${doc.data().text}
-        `;
+				table.innerHTML += `
+                <tr>
+                    <th> ${doc.id}</th> 
+                    <td> ${doc.data().text}</td>
+                    <td><button class="buttonDelete" onclick="deletePost('${
+											doc.id
+										}')">Delete</button></td>
+                    <td><button class="buttonEdit">Edit</button></td>
+                </tr>
+                
+                `;
 			});
 		});
-		/*let profile = document.querySelector('.user-profile');
-		const showProfile = () => {
-			profile.innerHTML = `
-			<input type="text" class="profile-form name" placeholder="Name">
-			<input type="text" class="profile-form last-name" placeholder="Last Name">
-			<input type="text" class="profile-form dob" placeholder="DOB (Day Of Birth)">
-			`;
-		}
-		document.querySelector('.profile-button').addEventListener('click', showProfile);*/
+		//document.querySelector(".buttonDelete").addEventListener("click", deletePost);
 	}
 };
 
 // Initialize Cloud Firestore through Firebase
 let db = firebase.firestore();
 //agregar informacion
-const post = () => {
+function post() {
 	let posts = document.querySelector('.post').value;
-	db.collection('userPost')
+	db.collection('table')
 		.add({
 			text: posts,
 		})
@@ -166,8 +172,20 @@ const post = () => {
 		.catch(function(error) {
 			console.error('Error adding document: ', error);
 		});
-};
+}
 
+//borrar datos
+function deletePost(id) {
+	db.collection('table')
+		.doc(id)
+		.delete()
+		.then(function() {
+			console.log('Document successfully deleted!');
+		})
+		.catch(function(error) {
+			console.error('Error removing document: ', error);
+		});
+}
 const saveProfile = () => {
 	let name = document.querySelector('.name').value;
 	let lastName = document.querySelector('.last-name').value;

@@ -1,70 +1,70 @@
 @import url('https://fonts.googleapis.com/css?family=Pacifico');
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
 * {
-	font-family: 'Pacifico', cursive;
-	color: #fffefe;
+    font-family: 'Pacifico', cursive;
+    color: #fffefe;
 }
 
 body {
-	margin: 0;
-	background: linear-gradient(201.19deg, #7a84b9 0%, #99a9ff 0.01%, #ffa7dc 49.69%, #894b70 100%);
-	background-size: cover;
-	background-attachment: fixed;
+    margin: 0;
+    background: linear-gradient(201.19deg, #7a84b9 0%, #99a9ff 0.01%, #ffa7dc 49.69%, #894b70 100%);
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .content {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 h1 {
-	font-size: 5rem;
-	text-align: center;
-	width: auto;
+    font-size: 5rem;
+    text-align: center;
+    width: auto;
 }
 
 input {
-	padding: 0.8rem;
-	font-family: 'Roboto Mono', monospace;
-	color: black;
+    padding: 0.8rem;
+    font-family: 'Roboto Mono', monospace;
+    color: black;
 }
 
 button {
-	color: #2a385b;
+    color: #2a385b;
 }
 
 .mail {
-	margin: 0.5rem;
+    margin: 0.5rem;
 }
 
 .camera {
-	width: 3%;
+    width: 3%;
 }
 
-section{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .sign-in {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .sign-up {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	display: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: none;
 }
 
 .boxPost {
-	color: black;
+    color: black;
 }
