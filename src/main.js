@@ -17,6 +17,7 @@ signInButton1.addEventListener('click', showSignIn);
 const register = () => {
 	let email = document.querySelector('.mailSignUp').value;
 	let password = document.querySelector('.passwordSignUp').value;
+	//	let name = document.querySelector('.name').value;
 
 	console.log(email);
 	console.log(password);
@@ -27,6 +28,9 @@ const register = () => {
 		.then(function() {
 			verification();
 			showSignIn();
+			//getProfile();
+			//let displayName = name;
+			console.log(displayName);
 		})
 		.catch(function(error) {
 			// Handle Errors here.
@@ -163,6 +167,7 @@ function post() {
 	let posts = document.querySelector('.post').value;
 	db.collection('table')
 		.add({
+			name: displayName,
 			text: posts,
 		})
 		.then(function(docRef) {
@@ -186,30 +191,6 @@ function deletePost(id) {
 			console.error('Error removing document: ', error);
 		});
 }
-const saveProfile = () => {
-	let name = document.querySelector('.name').value;
-	let lastName = document.querySelector('.last-name').value;
-	let dob = document.querySelector('.dob').value;
-	let country = document.querySelector('.country').value;
-
-	db.collection('users-profile')
-		.add({
-			first: name,
-			last: lastName,
-			born: dob,
-			country: country,
-		})
-		.then(function(docRef) {
-			console.log('Document written with ID: ', docRef.id);
-			document.querySelector('.name').value = '';
-			document.querySelector('.last-name').value = '';
-			document.querySelector('.dob').value = '';
-		})
-		.catch(function(error) {
-			console.error('Error adding document: ', error);
-		});
-};
-document.querySelector('.register-button').addEventListener('click', saveProfile);
 
 //Funcion de boton para cerrar sesion
 const close = () => {
