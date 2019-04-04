@@ -1,50 +1,3 @@
-const signUpForm = document.querySelector('.sign-up');
-const signInForm = document.querySelector('.sign-in');
-const showSignUp = () => {
-    signUpForm.style.display = 'block';
-    signInForm.style.display = 'none';
-};
-const signUpButton = document.querySelector('.sign-up-button');
-signUpButton.addEventListener('click', showSignUp);
-const showSignIn = () => {
-    signInForm.style.display = 'block';
-    signUpForm.style.display = 'none';
-};
-const signInButton1 = document.querySelector('.sign-in-button1');
-signInButton1.addEventListener('click', showSignIn);
-
-//Funcion para registrar usuarios nuevos
-const register = () => {
-	let email = document.querySelector('.mailSignUp').value;
-	let password = document.querySelector('.passwordSignUp').value;
-	//	let name = document.querySelector('.name').value;
-
-	console.log(email);
-	console.log(password);
-
-	firebase
-		.auth()
-		.createUserWithEmailAndPassword(email, password)
-		.then(function() {
-			verification();
-			showSignIn();
-			//getProfile();
-			//let displayName = name;
-			console.log(displayName);
-		})
-		.catch(function(error) {
-			// Handle Errors here.
-			let errorCode = error.code;
-			let errorMessage = error.message;
-			// ...
-			alert(errorMessage);
-			console.log(errorMessage);
-		});
-};
-
-const registerButton = document.querySelector('.register-button');
-registerButton.addEventListener('click', register);
-
 //Funcion para entrar a los usuarios ya registrados
 const enter = () => {
     let emailSignIn = document.querySelector('.mail').value;
@@ -59,10 +12,11 @@ const enter = () => {
             // ...
             alert(errorMessage);
             console.log(errorMessage);
-        });
+		});
+		showContent(user);
 };
-const signInButton = document.querySelector('.sign-in-button');
-signInButton.addEventListener('click', enter);
+
+
 
 //Funcion para verificar el correo electronico del usuario
 const verification = () => {
@@ -80,6 +34,40 @@ const verification = () => {
             // An error happened.
         });
 };
+
+
+//Funcion para registrar usuarios nuevos
+const register = () => {
+	let email = document.querySelector('.mailSignUp').value;
+	let password = document.querySelector('.passwordSignUp').value;
+	//	let name = document.querySelector('.name').value;
+
+	console.log(email);
+	console.log(password);
+
+	firebase
+		.auth()
+		.createUserWithEmailAndPassword(email, password)
+		.then(function() {
+			verification();
+			//showSignIn();
+			//getProfile();
+			//let displayName = name;
+			console.log(displayName);
+		})
+		.catch(function(error) {
+			// Handle Errors here.
+			let errorCode = error.code;
+			let errorMessage = error.message;
+			// ...
+			alert(errorMessage);
+			console.log(errorMessage);
+		});
+};
+
+
+
+
 
 //Funcion para observar todo lo que esta haciendo el codigo, registro, entrada, salida, usuario, etc.
 const observador = () => {
@@ -110,7 +98,7 @@ observador();
 //Funcion que muestra contenido a los usuarios registrados
 const showContent = user => {
     let user1 = user;
-    let content = document.querySelector('.content');
+    let content = document.querySelector('#content');
     if (user1.emailVerified) {
         content.innerHTML = `
 		<p>Welcome to WoTravel!</p>
@@ -135,9 +123,6 @@ const showContent = user => {
 		`;
         const signOutButton = document.querySelector('.sign-out-button');
         signOutButton.addEventListener('click', close);
-        //Función de botón para postear
-        document.querySelector('.buttonPost').addEventListener('click', post);
-
         let table = document.querySelector('.table');
         db.collection('table').onSnapshot(querySnapshot => {
             table.innerHTML = '';
@@ -159,7 +144,7 @@ const showContent = user => {
 
 // Initialize Cloud Firestore through Firebase
 let db = firebase.firestore();
-//agregar informacion
+//Funcion para postear
 function post() {
     let posts = document.querySelector('.post').value;
     db.collection('table').add({
@@ -173,6 +158,9 @@ function post() {
             console.error('Error adding document: ', error);
         });
 }
+ //Función de botón para postear
+ //document.querySelector('.buttonPost').addEventListener('click', post);
+
 
 //borrar datos
 function deletePost(id) {
@@ -187,10 +175,10 @@ function deletePost(id) {
         });
 }
 
+
 //editar datos
 function editPost(id, text) {
     document.querySelector(".post").value = text;
-
 
     let btn = document.querySelector(".buttonPost");
     btn.innerHTML = "Editar";
@@ -216,6 +204,7 @@ function editPost(id, text) {
 
     }
 }
+
 
 //Funcion de boton para cerrar sesion
 const close = () => {
