@@ -12,8 +12,8 @@ const enter = () => {
             // ...
             alert(errorMessage);
             console.log(errorMessage);
-		});
-		showContent(user);
+        });
+    showContent(user);
 };
 
 
@@ -38,31 +38,31 @@ const verification = () => {
 
 //Funcion para registrar usuarios nuevos
 const register = () => {
-	let email = document.querySelector('.mailSignUp').value;
-	let password = document.querySelector('.passwordSignUp').value;
-	//	let name = document.querySelector('.name').value;
+    let email = document.querySelector('.mailSignUp').value;
+    let password = document.querySelector('.passwordSignUp').value;
+    //	let name = document.querySelector('.name').value;
 
-	console.log(email);
-	console.log(password);
+    console.log(email);
+    console.log(password);
 
-	firebase
-		.auth()
-		.createUserWithEmailAndPassword(email, password)
-		.then(function() {
-			verification();
-			//showSignIn();
-			//getProfile();
-			//let displayName = name;
-			console.log(displayName);
-		})
-		.catch(function(error) {
-			// Handle Errors here.
-			let errorCode = error.code;
-			let errorMessage = error.message;
-			// ...
-			alert(errorMessage);
-			console.log(errorMessage);
-		});
+    firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(function() {
+            verification();
+            //showSignIn();
+            //getProfile();
+            //let displayName = name;
+            console.log(displayName);
+        })
+        .catch(function(error) {
+            // Handle Errors here.
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            // ...
+            alert(errorMessage);
+            console.log(errorMessage);
+        });
 };
 
 
@@ -106,7 +106,8 @@ const showContent = user => {
 		<section class="user-profile"></section>
 		<br>
 		<input type="text" name="" id="" class="post" placeholder="New post" />
-        <button class="buttonPost" onclick="">Post</button>
+        <button class="buttonPost">Post</button>
+        <button class ="showEdit" onclick="showPost()">showEdit</button>
         <table class="tablePost my-3">
             <thead>
                 <tr>
@@ -120,10 +121,11 @@ const showContent = user => {
         </table>
         <button class="sign-out-button">Sign Out</button>
 
-		`;
+		` //Función de botón para postear
+        document.querySelector('.buttonPost').addEventListener('click', post);
         const signOutButton = document.querySelector('.sign-out-button');
         signOutButton.addEventListener('click', close);
-        let table = document.querySelector('.table');
+        let table = document.querySelector('table');
         db.collection('table').onSnapshot(querySnapshot => {
             table.innerHTML = '';
             querySnapshot.forEach(doc => {
@@ -135,7 +137,8 @@ const showContent = user => {
                     <td><button class="buttonDelete" onclick="deletePost('${doc.id}')">Delete</button></td>
 					<td><button class="buttonEdit" onclick="editPost('${doc.id}', '${doc.data().text}')">Edit</button></td>
 					
-                </tr> `;
+                </tr> `
+
             });
         });
         //document.querySelector(".buttonDelete").addEventListener("click", deletePost);
@@ -158,8 +161,7 @@ function post() {
             console.error('Error adding document: ', error);
         });
 }
- //Función de botón para postear
- //document.querySelector('.buttonPost').addEventListener('click', post);
+
 
 
 //borrar datos
@@ -172,7 +174,9 @@ function deletePost(id) {
         })
         .catch(function(error) {
             console.error('Error removing document: ', error);
+
         });
+
 }
 
 
@@ -180,30 +184,23 @@ function deletePost(id) {
 function editPost(id, text) {
     document.querySelector(".post").value = text;
 
-    let btn = document.querySelector(".buttonPost");
-    btn.innerHTML = "Editar";
+    let washingtonRef = db.collection("table").doc(id);
+    let posts = document.querySelector(".post").value;
+    return washingtonRef.update({
+            text: posts,
+        })
+        .then(function() {
+            console.log("Document successfully updated!");
+            document.querySelector(".post").value = "";
 
-    btn.onclick = function() {
-        let washingtonRef = db.collection("table").doc(id);
-        let posts = document.querySelector(".post").value;
-        return washingtonRef.update({
-
-                text: posts,
-            })
-            .then(function() {
-                console.log("Document successfully updated!");
-                btn.innerHTML = "Guardar";
-                document.querySelector(".post").value = "";
-                btn.innerHTML = ""
-
-            })
-            .catch(function(error) {
-                // The document probably doesn't exist.
-                console.error("Error updating document: ", error);
-            });
-
-    }
+        })
+        .catch(function(error) {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+        });
 }
+document.querySelector(".showEdit").addEventListener("click", editPost);
+
 
 
 //Funcion de boton para cerrar sesion
