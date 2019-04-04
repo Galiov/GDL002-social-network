@@ -1,3 +1,6 @@
+// Initialize Cloud Firestore through Firebase
+let db = firebase.firestore();
+
 //Funcion para entrar a los usuarios ya registrados
 const enter = () => {
     let emailSignIn = document.querySelector('.mail').value;
@@ -38,22 +41,20 @@ const verification = () => {
 
 //Funcion para registrar usuarios nuevos
 const register = () => {
+	let user = firebase.auth().currentUser;
 	let email = document.querySelector('.mailSignUp').value;
 	let password = document.querySelector('.passwordSignUp').value;
-	//	let name = document.querySelector('.name').value;
+	let displayName = document.querySelector('.name').value;
 
 	console.log(email);
 	console.log(password);
+			//console.log(displayName);
 
 	firebase
 		.auth()
 		.createUserWithEmailAndPassword(email, password)
 		.then(function() {
 			verification();
-			//showSignIn();
-			//getProfile();
-			//let displayName = name;
-			console.log(displayName);
 		})
 		.catch(function(error) {
 			// Handle Errors here.
@@ -64,8 +65,6 @@ const register = () => {
 			console.log(errorMessage);
 		});
 };
-
-
 
 
 
@@ -106,7 +105,9 @@ const showContent = user => {
 		<section class="user-profile"></section>
 		<br>
 		<input type="text" name="" id="" class="post" placeholder="New post" />
-        <button class="buttonPost" onclick="">Post</button>
+        <button class="buttonPost" >Post</button>
+        <button class="buttonShowEdit" >Save Edit</button>
+
         <table class="tablePost my-3">
             <thead>
                 <tr>
@@ -123,6 +124,8 @@ const showContent = user => {
 		`;
         const signOutButton = document.querySelector('.sign-out-button');
         signOutButton.addEventListener('click', close);
+
+
         let table = document.querySelector('.table');
         db.collection('table').onSnapshot(querySnapshot => {
             table.innerHTML = '';
@@ -137,17 +140,19 @@ const showContent = user => {
 					
                 </tr> `;
             });
+    document.querySelector('.buttonPost').addEventListener('click', post);
         });
         //document.querySelector(".buttonDelete").addEventListener("click", deletePost);
     }
+
 };
 
-// Initialize Cloud Firestore through Firebase
-let db = firebase.firestore();
 //Funcion para postear
 function post() {
     let posts = document.querySelector('.post').value;
+    let user = firebase.auth().currentUser;
     db.collection('table').add({
+    		displayName: user.displayName,
             text: posts,
         })
         .then(function(docRef) {
@@ -180,10 +185,9 @@ function deletePost(id) {
 function editPost(id, text) {
     document.querySelector(".post").value = text;
 
-    let btn = document.querySelector(".buttonPost");
-    btn.innerHTML = "Editar";
+  //  btn.innerHTML = "Editar";
 
-    btn.onclick = function() {
+ function editP () {
         let washingtonRef = db.collection("table").doc(id);
         let posts = document.querySelector(".post").value;
         return washingtonRef.update({
@@ -192,9 +196,9 @@ function editPost(id, text) {
             })
             .then(function() {
                 console.log("Document successfully updated!");
-                btn.innerHTML = "Guardar";
+               // btn.innerHTML = "Guardar Edición";
                 document.querySelector(".post").value = "";
-                btn.innerHTML = ""
+           //     btn.innerHTML = "Post";
 
             })
             .catch(function(error) {
@@ -203,6 +207,7 @@ function editPost(id, text) {
             });
 
     }
+document.querySelector(".buttonShowEdit").addEventListener("click", editP);
 }
 
 
