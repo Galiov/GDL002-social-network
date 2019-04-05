@@ -3,100 +3,100 @@ let db = firebase.firestore();
 
 //Funcion para entrar a los usuarios ya registrados
 const enter = () => {
-	let emailSignIn = document.querySelector('.mail').value;
-	let passwordSignIn = document.querySelector('.password').value;
-	firebase
-		.auth()
-		.signInWithEmailAndPassword(emailSignIn, passwordSignIn)
-		.catch(function(error) {
-			// Handle Errors here.
-			let errorCode = error.code;
-			let errorMessage = error.message;
-			// ...
-			alert(errorMessage);
-			console.log(errorMessage);
-		});
-	showContent(user);
+    let emailSignIn = document.querySelector('.mail').value;
+    let passwordSignIn = document.querySelector('.password').value;
+    firebase
+        .auth()
+        .signInWithEmailAndPassword(emailSignIn, passwordSignIn)
+        .catch(function(error) {
+            // Handle Errors here.
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            // ...
+            alert(errorMessage);
+            console.log(errorMessage);
+        });
+    showContent(user);
 };
 
 //Funcion para verificar el correo electronico del usuario
 const verification = () => {
-	let user = firebase.auth().currentUser;
-	user.updateProfile({
-		displayName: document.querySelector('.name').value
-	})
+    let user = firebase.auth().currentUser;
+    user.updateProfile({
+        displayName: document.querySelector('.name').value
+    })
 
-	user
-		.sendEmailVerification()
-		.then(function() {
-			// Email sent.
-			alert(
-				'Te hemos enviado un código de verificación, por favor revisa tu bandeja para poder ingresar',
-			);
-			console.log('Enviando correo');
-		})
-		.catch(function(error) {
-			// An error happened.
-		});
+    user
+        .sendEmailVerification()
+        .then(function() {
+            // Email sent.
+            alert(
+                'Te hemos enviado un código de verificación, por favor revisa tu bandeja para poder ingresar',
+            );
+            console.log('Enviando correo');
+        })
+        .catch(function(error) {
+            // An error happened.
+        });
 };
 
 //Funcion para registrar usuarios nuevos
 const register = () => {
-	let user = firebase.auth().currentUser;
-	let email = document.querySelector('.mailSignUp').value;
-	let password = document.querySelector('.passwordSignUp').value;
+    let user = firebase.auth().currentUser;
+    let email = document.querySelector('.mailSignUp').value;
+    let password = document.querySelector('.passwordSignUp').value;
 
-	console.log(email);
-	console.log(password);
+    console.log(email);
+    console.log(password);
 
-	firebase
-		.auth()
-		.createUserWithEmailAndPassword(email, password)
-		.then(function() {
-			verification();
-		})
-		.catch(function(error) {
-			// Handle Errors here.
-			let errorCode = error.code;
-			let errorMessage = error.message;
-			// ...
-			alert(errorMessage);
-			console.log(errorMessage);
-		});
+    firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(function() {
+            verification();
+        })
+        .catch(function(error) {
+            // Handle Errors here.
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            // ...
+            alert(errorMessage);
+            console.log(errorMessage);
+        });
 };
 
 //Funcion para observar todo lo que esta haciendo el codigo, registro, entrada, salida, usuario, etc.
 const observador = () => {
-	firebase.auth().onAuthStateChanged(function(user) {
-		if (user) {
-			console.log('Existe Usuario activo');
-			showContent(user);
-			// User is signed in.
-			let displayName = user.displayName;
-			let email = user.email;
-			console.log(user);
-			console.log(user.emailVerified);
-			let emailVerified = user.emailVerified;
-			let photoURL = user.photoURL;
-			let isAnonymous = user.isAnonymous;
-			let uid = user.uid;
-			let providerData = user.providerData;
-			// ...
-		} else {
-			// User is signed out.
-			console.log('No existe usuario activo');
-			// ...
-		}
-	});
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            console.log('Existe Usuario activo');
+            showContent(user);
+            // User is signed in.
+            let displayName = user.displayName;
+            let email = user.email;
+            console.log(user);
+            console.log(user.emailVerified);
+            let emailVerified = user.emailVerified;
+            let photoURL = user.photoURL;
+            let isAnonymous = user.isAnonymous;
+            let uid = user.uid;
+            let providerData = user.providerData;
+            // ...
+        } else {
+            // User is signed out.
+            console.log('No existe usuario activo');
+            // ...
+        }
+    });
 };
 observador();
 
 //Funcion que muestra contenido a los usuarios registrados
 const showContent = user => {
-	let user1 = user;
-	let content = document.querySelector('#content');
-	if (user1.emailVerified) {
-		content.innerHTML = `
+    let user1 = user;
+    let content = document.querySelector('#content');
+    if (user1.emailVerified) {
+        content.innerHTML = `
 		<p>Welcome to WoTravel!</p>
 		<button class="profile-button">Profile</button>
 		<section class="user-profile"></section>
@@ -108,10 +108,11 @@ const showContent = user => {
         <table class="tablePost my-3">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
+                    <th scope="col">Nombre Usuario</th>
                     <th scope="col">Post</th>
                     <th scope="col">Eliminar</th>
                     <th scope="col">Editar</th>
+                    <th scope="col">Like</th>
                 </tr>
             </thead>
             <tbody class="table"></tbody>
@@ -119,28 +120,27 @@ const showContent = user => {
         <button class="sign-out-button">Sign Out</button>
 		`;
 
-		const signOutButton = document.querySelector('.sign-out-button');
-		signOutButton.addEventListener('click', close);
 
-		let table = document.querySelector('.table');
-		db.collection('table').onSnapshot(querySnapshot => {
-			table.innerHTML = '';
-			querySnapshot.forEach(doc => {
-				console.log(`${doc.id} => ${doc.data().text}`);
-				table.innerHTML += `
+        let table = document.querySelector('.table');
+        db.collection('table').onSnapshot(querySnapshot => {
+            table.innerHTML = '';
+            querySnapshot.forEach(doc => {
+                console.log(`${doc.id} => ${doc.data().text}`);
+                table.innerHTML += `
                 <tr>
                     <th> ${doc.data().displayName}</th> 
                     <td> ${doc.data().text}</td>
                     <td><button class="buttonDelete" onclick="deletePost('${doc.id}')">Delete</button></td>
 					<td><button class="buttonEdit" onclick="editPost('${doc.id}', '${doc.data().text}')">Edit</button></td>
-					<td><button class="buttonLike" id='${doc.id}' onclick="likes('${doc.id}', '${doc.data().like}'>Like</button></td>
+					<td><button class="buttonLike" id='${doc.id}' onclick="likes('${doc.id}', '${doc.data().like}')">Like</button></td>
                 </tr> `
 
             });
 
-			document.querySelector('.buttonPost').addEventListener('click', post);
+            document.querySelector('.buttonPost').addEventListener('click', post);
         });
-        //document.querySelector(".buttonDelete").addEventListener("click", deletePost);
+        const signOutButton = document.querySelector('.sign-out-button');
+        signOutButton.addEventListener('click', close);
     }
 };
 
@@ -207,7 +207,7 @@ function editPost(id, text) {
     }
     document.querySelector(".buttonShowEdit").addEventListener("click", editP);
 }
-document.querySelector(".showEdit").addEventListener("click", editPost);
+
 
 function likes(id, likes) {
     likes++;
@@ -237,14 +237,14 @@ function likes(id, likes) {
 
 //Funcion de boton para cerrar sesion
 const close = () => {
-	firebase
-		.auth()
-		.signOut()
-		.then(function() {
-			signOutChange()
-			console.log('Saliendo... :)');
-		})
-		.catch(function(error) {
-			console.log(error);
-		});
+    firebase
+        .auth()
+        .signOut()
+        .then(function() {
+            signOutChange()
+            console.log('Saliendo... :)');
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
 };
