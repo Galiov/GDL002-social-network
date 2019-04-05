@@ -22,6 +22,6 @@ let signUp = `
         <input type="password" class="input" placeholder="Confirm password" />
         <button class="register-button">Send</button>
         <p>Are you already registered?</p>
-        <button id="changeSignIp" class="sign-in-button1 changeSignIp">Sign In</button>
+        <button id="changeHomepage" class="sign-in-button1 changeSignIp">Sign In</button>
     </section>
     `;

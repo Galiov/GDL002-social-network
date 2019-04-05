@@ -1,7 +1,7 @@
 //window.onload = () => {location.hash ="#homepage"};
 
 let routes = {
-    ' ': homepage,
+    '': homepage,
     'index.html':homepage,
     '#homepage': homepage,
     '#signUp': signUp,
@@ -22,6 +22,7 @@ window.onpopstate = () => {
         document.querySelector("#changeTimeline") && document.querySelector("#changeTimeline").addEventListener("click",showContentChange);
         document.querySelector("#changeSignUp") && document.querySelector("#changeSignUp").addEventListener("click", signUpChange);
         callRegisterButton();
+        callHomepageChange();
     }, 0); 
 }
 
@@ -53,3 +54,15 @@ function signUpChange () {
 }
 document.querySelector("#changeSignUp").addEventListener("click",signUpChange);
 
+function homepageChange (){
+  window.location.hash = "homepage"
+}
+
+function callHomepageChange () {
+  document.querySelector("#changeHomepage").addEventListener("click", homepageChange);
+}
+
+function signOutChange (){
+  console.log("Hola3")
+  window.location.hash = "homepage"
+}
