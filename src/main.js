@@ -3,6 +3,7 @@ let db = firebase.firestore();
 
 //Funcion para entrar a los usuarios ya registrados
 const enter = () => {
+	let user = firebase.auth().currentUser;
 	let emailSignIn = document.querySelector('.mail').value;
 	let passwordSignIn = document.querySelector('.password').value;
 	firebase
@@ -23,8 +24,8 @@ const enter = () => {
 const verification = () => {
 	let user = firebase.auth().currentUser;
 	user.updateProfile({
-		displayName: document.querySelector('.name').value
-	})
+		displayName: document.querySelector('.name').value,
+	});
 
 	user
 		.sendEmailVerification()
@@ -67,6 +68,7 @@ const register = () => {
 
 //Funcion para observar todo lo que esta haciendo el codigo, registro, entrada, salida, usuario, etc.
 const observador = () => {
+	let user = firebase.auth().currentUser;
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {
 			console.log('Existe Usuario activo');
@@ -98,7 +100,6 @@ const showContent = user => {
 	if (user1.emailVerified) {
 		content.innerHTML = `
 		<p>Welcome to WoTravel!</p>
-		<button class="profile-button">Profile</button>
 		<section class="user-profile"></section>
 		<br>
 		<input type="text" name="" id="" class="post" placeholder="New post" />
@@ -131,108 +132,109 @@ const showContent = user => {
                 <tr>
                     <th> ${doc.data().displayName}</th> 
                     <td> ${doc.data().text}</td>
-                    <td><button class="buttonDelete" onclick="deletePost('${doc.id}')">Delete</button></td>
-					<td><button class="buttonEdit" onclick="editPost('${doc.id}', '${doc.data().text}')">Edit</button></td>
-					<td><button class="buttonLike" id='${doc.id}' onclick="likes('${doc.id}', '${doc.data().like}'>Like</button></td>
-                </tr> `
+                    <td><button class="buttonDelete" onclick="deletePost('${
+											doc.id
+										}')">Delete</button></td>
+					<td><button class="buttonEdit" onclick="editPost('${doc.id}', '${
+					doc.data().text
+				}')">Edit</button></td>
+					<td><button class="buttonLike" id='${doc.id}' onclick="likes('${doc.id}', '${
+					doc.data().like
+				}'>Like</button></td>
+                </tr> `;
+			});
 
-            });
-
-			document.querySelector('.buttonPost').addEventListener('click', post);
-        });
-        //document.querySelector(".buttonDelete").addEventListener("click", deletePost);
-    }
+		});
+		document.querySelector('.buttonPost').addEventListener('click', post);
+		//document.querySelector(".buttonDelete").addEventListener("click", deletePost);
+	}
+		//document.querySelector('.showEdit').addEventListener('click', editPost);
 };
 
 //Funcion para postear
-function post() {
-    let posts = document.querySelector('.post').value;
-    let user = firebase.auth().currentUser;
-    let like = 0;
-    db.collection('table').add({
-            displayName: user.displayName,
-            text: posts,
-            like: like,
-        })
-        .then(function(docRef) {
-            console.log('Document written with ID: ', docRef.id);
-            document.querySelector(".post").value = '';
-        })
-        .catch(function(error) {
-            console.error('Error adding document: ', error);
-        });
+const post = () => {
+	let posts = document.querySelector('.post').value;
+	let user = firebase.auth().currentUser;
+	let like = 0;
+	db.collection('table')
+		.add({
+			displayName: user.displayName,
+			text: posts,
+			like: like,
+		})
+		.then(function(docRef) {
+			console.log('Document written with ID: ', docRef.id);
+			document.querySelector('.post').value = '';
+		})
+		.catch(function(error) {
+			console.error('Error adding document: ', error);
+		});
 }
 
-
-
 //borrar datos
-function deletePost(id) {
-    db.collection('table')
-        .doc(id)
-        .delete()
-        .then(function() {
-            console.log('Document successfully deleted!');
-        })
-        .catch(function(error) {
-            console.error('Error removing document: ', error);
-
-        });
+const deletePost = (id) => {
+	db.collection('table')
+		.doc(id)
+		.delete()
+		.then(function() {
+			console.log('Document successfully deleted!');
+		})
+		.catch(function(error) {
+			console.error('Error removing document: ', error);
+		});
 }
 
 //editar datos
-function editPost(id, text) {
-    document.querySelector(".post").value = text;
+const editPost = (id, text) => {
+	document.querySelector('.post').value = text;
 
-    //  btn.innerHTML = "Editar";
+	//  btn.innerHTML = "Editar";
 
-    function editP() {
-        let washingtonRef = db.collection("table").doc(id);
-        let posts = document.querySelector(".post").value;
-        return washingtonRef.update({
-
-                text: posts,
-            })
-            .then(function() {
-                console.log("Document successfully updated!");
-                // btn.innerHTML = "Guardar Edición";
-                document.querySelector(".post").value = "";
-                //     btn.innerHTML = "Post";
-
-            })
-            .catch(function(error) {
-                // The document probably doesn't exist.
-                console.error("Error updating document: ", error);
-            });
-
-    }
-    document.querySelector(".buttonShowEdit").addEventListener("click", editP);
+	function editP() {
+		let washingtonRef = db.collection('table').doc(id);
+		let posts = document.querySelector('.post').value;
+		return washingtonRef
+			.update({
+				text: posts,
+			})
+			.then(function() {
+				console.log('Document successfully updated!');
+				// btn.innerHTML = "Guardar Edición";
+				document.querySelector('.post').value = '';
+				//     btn.innerHTML = "Post";
+			})
+			.catch(function(error) {
+				// The document probably doesn't exist.
+				console.error('Error updating document: ', error);
+			});
+	}
+	document.querySelector('.buttonShowEdit').addEventListener('click', editP);
 }
-document.querySelector(".showEdit").addEventListener("click", editPost);
 
-function likes(id, likes) {
-    likes++;
+const likes = (id, likes) => {
+	likes++;
 
-    likes = parseInt(likes);
-    let washingtonRef = db.collection("table").doc(id);
+	likes = parseInt(likes);
+	let washingtonRef = db.collection('table').doc(id);
 
-    return washingtonRef
-        .update({
-            like: likes,
+	return washingtonRef
+		.update({
+			like: likes,
+		})
+		.then(function() {
+			let washingtonRef = db.collection('table').doc(id).id;
 
-        }).then(function() {
-            let washingtonRef = (db.collection("table").doc(id)).id;
+			let buttonLike = document.getElementById(washingtonRef);
+			buttonLike.innerHTML += ' ' + likes;
+		})
+		.then(function() {
+			console.log('Document successfully updated!');
+		})
 
-            let buttonLike = document.getElementById(washingtonRef);
-            buttonLike.innerHTML += " " + likes;
-        })
-        .then(function() {
-            console.log('Document successfully updated!');
-        })
-
-    .catch(function(error) {
-        // The document probably doesn't exist.
-        console.error('Error updating document: ', error);
-    });
+		.catch(function(error) {
+			// The document probably doesn't exist.
+			console.error('Error updating document: ', error);
+		});
 }
 
 //Funcion de boton para cerrar sesion
@@ -241,7 +243,7 @@ const close = () => {
 		.auth()
 		.signOut()
 		.then(function() {
-			signOutChange()
+			signOutChange();
 			console.log('Saliendo... :)');
 		})
 		.catch(function(error) {
