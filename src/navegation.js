@@ -5,10 +5,10 @@ let routes = {
     'index.html':homepage,
     '#homepage': homepage,
     '#signUp': signUp,
-    '#showContent':showContent,
-  };
+    '#showContent': showContent,
+};
 
-  let contentDiv = document.querySelector('#content');
+let contentDiv = document.querySelector('#content');
 
 window.addEventListener("hashchange", () => {
     contentDiv.innerHTML = routes[window.location.hash];
@@ -19,7 +19,7 @@ contentDiv.innerHTML = routes[window.location.hash];
 window.onpopstate = () => {
     contentDiv.innerHTML = routes[window.location.hash];
     setTimeout(() => {
-        document.querySelector("#changeTimeline") && document.querySelector("#changeTimeline").addEventListener("click",showContentChange);
+        document.querySelector("#changeTimeline") && document.querySelector("#changeTimeline").addEventListener("click", showContentChange);
         document.querySelector("#changeSignUp") && document.querySelector("#changeSignUp").addEventListener("click", signUpChange);
         callRegisterButton();
         callHomepageChange ();
@@ -40,7 +40,7 @@ function callRegisterButton () {
 function showContentChange () {
     window.location.hash = "showContent" 
 }
-document.querySelector("#changeTimeline").addEventListener("click",showContentChange);
+document.querySelector("#changeTimeline").addEventListener("click", showContentChange);
 
 
 function signUpChange () {

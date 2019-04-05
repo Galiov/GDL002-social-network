@@ -1,4 +1,4 @@
-let homepage =  `
+let homepage = `
     <h1>WoTravel</h1>
     <section class="sign-in">
         <input class="mail" type="email" placeholder="Mail" />
@@ -7,7 +7,7 @@ let homepage =  `
         <p>New Traveler?</p>
         <button id="changeSignUp" class="sign-up-button changeSignUp">Sign Up</button>
     </section>    
-        `;  
+        `;
 
 let signUp = `
     <section class="sign-up">

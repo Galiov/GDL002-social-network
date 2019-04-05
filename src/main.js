@@ -63,7 +63,6 @@ const register = () => {
 			alert(errorMessage);
 			console.log(errorMessage);
 		});
-
 };
 
 //Funcion para observar todo lo que esta haciendo el codigo, registro, entrada, salida, usuario, etc.
@@ -132,81 +131,109 @@ const showContent = user => {
                 <tr>
                     <th> ${doc.data().displayName}</th> 
                     <td> ${doc.data().text}</td>
-                    <td><button class="buttonDelete" onclick="deletePost('${
-											doc.id
-										}')">Delete</button></td>
-					<td><button class="buttonEdit" onclick="editPost('${doc.id}', '${
-					doc.data().text
-				}')">Edit</button></td>
-					
-                </tr> `;
-			});
+                    <td><button class="buttonDelete" onclick="deletePost('${doc.id}')">Delete</button></td>
+					<td><button class="buttonEdit" onclick="editPost('${doc.id}', '${doc.data().text}')">Edit</button></td>
+					<td><button class="buttonLike" id='${doc.id}' onclick="likes('${doc.id}', '${doc.data().like}'>Like</button></td>
+                </tr> `
+
+            });
+
 			document.querySelector('.buttonPost').addEventListener('click', post);
-		});
-		//document.querySelector(".buttonDelete").addEventListener("click", deletePost);
-	}
+        });
+        //document.querySelector(".buttonDelete").addEventListener("click", deletePost);
+    }
 };
 
 //Funcion para postear
 function post() {
-	let posts = document.querySelector('.post').value;
-	let user = firebase.auth().currentUser;
-	db.collection('table')
-		.add({
-			displayName: user.displayName,
-			text: posts,
-		})
-		.then(function(docRef) {
-			console.log('Document written with ID: ', docRef.id);
-			document.querySelector('.post').value = '';
-		})
-		.catch(function(error) {
-			console.error('Error adding document: ', error);
-		});
+    let posts = document.querySelector('.post').value;
+    let user = firebase.auth().currentUser;
+    let like = 0;
+    db.collection('table').add({
+            displayName: user.displayName,
+            text: posts,
+            like: like,
+        })
+        .then(function(docRef) {
+            console.log('Document written with ID: ', docRef.id);
+            document.querySelector(".post").value = '';
+        })
+        .catch(function(error) {
+            console.error('Error adding document: ', error);
+        });
 }
-//Función de botón para postear
-//document.querySelector('.buttonPost').addEventListener('click', post);
+
+
 
 //borrar datos
 function deletePost(id) {
-	db.collection('table')
-		.doc(id)
-		.delete()
-		.then(function() {
-			console.log('Document successfully deleted!');
-		})
-		.catch(function(error) {
-			console.error('Error removing document: ', error);
-		});
+    db.collection('table')
+        .doc(id)
+        .delete()
+        .then(function() {
+            console.log('Document successfully deleted!');
+        })
+        .catch(function(error) {
+            console.error('Error removing document: ', error);
+
+        });
 }
 
 //editar datos
 function editPost(id, text) {
-	document.querySelector('.post').value = text;
+    document.querySelector(".post").value = text;
 
-	//  btn.innerHTML = "Editar";
+    //  btn.innerHTML = "Editar";
 
-	function editP() {
-		let washingtonRef = db.collection('table').doc(id);
-		let posts = document.querySelector('.post').value;
-		return washingtonRef
-			.update({
-				text: posts,
-			})
-			.then(function() {
-				console.log('Document successfully updated!');
-				// btn.innerHTML = "Guardar Edición";
-				document.querySelector('.post').value = '';
-				//     btn.innerHTML = "Post";
-			})
-			.catch(function(error) {
-				// The document probably doesn't exist.
-				console.error('Error updating document: ', error);
-			});
-	}
-	document.querySelector('.buttonShowEdit').addEventListener('click', editP);
+    function editP() {
+        let washingtonRef = db.collection("table").doc(id);
+        let posts = document.querySelector(".post").value;
+        return washingtonRef.update({
+
+                text: posts,
+            })
+            .then(function() {
+                console.log("Document successfully updated!");
+                // btn.innerHTML = "Guardar Edición";
+                document.querySelector(".post").value = "";
+                //     btn.innerHTML = "Post";
+
+            })
+            .catch(function(error) {
+                // The document probably doesn't exist.
+                console.error("Error updating document: ", error);
+            });
+
+    }
+    document.querySelector(".buttonShowEdit").addEventListener("click", editP);
 }
+document.querySelector(".showEdit").addEventListener("click", editPost);
 
+function likes(id, likes) {
+    likes++;
+
+    likes = parseInt(likes);
+    let washingtonRef = db.collection("table").doc(id);
+
+    return washingtonRef
+        .update({
+            like: likes,
+
+        }).then(function() {
+            let washingtonRef = (db.collection("table").doc(id)).id;
+
+            let buttonLike = document.getElementById(washingtonRef);
+            buttonLike.innerHTML += " " + likes;
+        })
+        .then(function() {
+            console.log('Document successfully updated!');
+        })
+
+    .catch(function(error) {
+        // The document probably doesn't exist.
+        console.error('Error updating document: ', error);
+    });
+}
 
 //Funcion de boton para cerrar sesion
 const close = () => {
