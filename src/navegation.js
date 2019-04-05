@@ -36,7 +36,6 @@ function callRegisterButton () {
 //
 
 
-
 function showContentChange () {
     window.location.hash = "showContent" 
 }
