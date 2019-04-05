@@ -134,11 +134,11 @@ const showContent = user => {
                 console.log(`${doc.id} => ${doc.data().text}`);
                 table.innerHTML += `
                 <tr>
-                    <th> ${doc.id}</th> 
+                    <th> ${doc.data().displayName}</th> 
                     <td> ${doc.data().text}</td>
                     <td><button class="buttonDelete" onclick="deletePost('${doc.id}')">Delete</button></td>
 					<td><button class="buttonEdit" onclick="editPost('${doc.id}', '${doc.data().text}')">Edit</button></td>
-					<td><button class="buttonlike" onclick="like('${doc.id}')">Like</button></td>
+					<td><button class="buttonLike" id='${doc.id}' onclick="likes('${doc.id}', '${doc.data().like}'>Like</button></td>
                 </tr> `
 
             });
@@ -153,9 +153,11 @@ const showContent = user => {
 function post() {
     let posts = document.querySelector('.post').value;
     let user = firebase.auth().currentUser;
+    let like = 0;
     db.collection('table').add({
             displayName: user.displayName,
             text: posts,
+            like: like,
         })
         .then(function(docRef) {
             console.log('Document written with ID: ', docRef.id);
@@ -214,7 +216,31 @@ function editPost(id, text) {
 }
 document.querySelector(".showEdit").addEventListener("click", editPost);
 
+function likes(id, likes) {
+    likes++;
 
+    likes = parseInt(likes);
+    let washingtonRef = db.collection("table").doc(id);
+
+    return washingtonRef
+        .update({
+            like: likes,
+
+        }).then(function() {
+            let washingtonRef = (db.collection("table").doc(id)).id;
+
+            let buttonLike = document.getElementById(washingtonRef);
+            buttonLike.innerHTML += " " + likes;
+        })
+        .then(function() {
+            console.log('Document successfully updated!');
+        })
+
+    .catch(function(error) {
+        // The document probably doesn't exist.
+        console.error('Error updating document: ', error);
+    });
+}
 
 //Funcion de boton para cerrar sesion
 const close = () => {
@@ -222,7 +248,7 @@ const close = () => {
         .auth()
         .signOut()
         .then(function() {
-            signOutChange()
+            signOutChange();
             console.log('Saliendo... :)');
         })
         .catch(function(error) {
