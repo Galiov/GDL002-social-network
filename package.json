@@ -1,0 +1,34 @@
+{
+  "name": "social-network-package",
+  "version": "1.0.0",
+  "description": "## Introducción a las Redes Sociales.",
+  "main": "index.html",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "eslint": "^5.16.0",
+    "eslint-plugin-jest": "^22.4.1",
+    "firebase": "^5.9.3",
+    "htmlhint": "^0.11.0",
+    "http-server": "^0.11.1",
+    "jest": "^24.7.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "htmlhint": "htmlhint src/*.html test/*.html",
+    "eslint": "eslint --ext .js src/ test/",
+    "pretest": "npm run eslint && npm run htmlhint",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/March-Hdz-Carba/GDL002-social-network.git"
+  },
+  "author": "Galilea, Marcela, Myrna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/March-Hdz-Carba/GDL002-social-network/issues"
+  },
+  "homepage": "https://github.com/March-Hdz-Carba/GDL002-social-network#readme"
+}

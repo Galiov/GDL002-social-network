@@ -120,7 +120,8 @@ const showContent = user => {
         </table>
         <button class="sign-out-button">Sign Out</button>
 
-		`;
+        `//Funcion de boton para postear
+        document.querySelector('.buttonPost').addEventListener('click', post);
         const signOutButton = document.querySelector('.sign-out-button');
         signOutButton.addEventListener('click', close);
         let table = document.querySelector('.table');
@@ -204,7 +205,7 @@ function editPost(id, text) {
 
     }
 }
-
+  
 
 //Funcion de boton para cerrar sesion
 const close = () => {
@@ -212,6 +213,7 @@ const close = () => {
         .auth()
         .signOut()
         .then(function() {
+            signOutChange()
             console.log('Saliendo... :)');
         })
         .catch(function(error) {
