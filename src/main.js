@@ -1,3 +1,6 @@
+// Initialize Cloud Firestore through Firebase
+let db = firebase.firestore();
+
 //Funcion para entrar a los usuarios ya registrados
 const enter = () => {
     let emailSignIn = document.querySelector('.mail').value;
@@ -38,22 +41,20 @@ const verification = () => {
 
 //Funcion para registrar usuarios nuevos
 const register = () => {
+    let user = firebase.auth().currentUser;
     let email = document.querySelector('.mailSignUp').value;
     let password = document.querySelector('.passwordSignUp').value;
-    //	let name = document.querySelector('.name').value;
+    let displayName = document.querySelector('.name').value;
 
     console.log(email);
     console.log(password);
+    //console.log(displayName);
 
     firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(function() {
             verification();
-            //showSignIn();
-            //getProfile();
-            //let displayName = name;
-            console.log(displayName);
         })
         .catch(function(error) {
             // Handle Errors here.
@@ -64,8 +65,6 @@ const register = () => {
             console.log(errorMessage);
         });
 };
-
-
 
 
 
@@ -106,8 +105,9 @@ const showContent = user => {
 		<section class="user-profile"></section>
 		<br>
 		<input type="text" name="" id="" class="post" placeholder="New post" />
-        <button class="buttonPost">Post</button>
-        <button class ="showEdit" onclick="showPost()">showEdit</button>
+        <button class="buttonPost" >Post</button>
+        <button class="buttonShowEdit" >Save Edit</button>
+
         <table class="tablePost my-3">
             <thead>
                 <tr>
@@ -125,7 +125,9 @@ const showContent = user => {
         document.querySelector('.buttonPost').addEventListener('click', post);
         const signOutButton = document.querySelector('.sign-out-button');
         signOutButton.addEventListener('click', close);
-        let table = document.querySelector('table');
+
+
+        let table = document.querySelector('.table');
         db.collection('table').onSnapshot(querySnapshot => {
             table.innerHTML = '';
             querySnapshot.forEach(doc => {
@@ -136,21 +138,23 @@ const showContent = user => {
                     <td> ${doc.data().text}</td>
                     <td><button class="buttonDelete" onclick="deletePost('${doc.id}')">Delete</button></td>
 					<td><button class="buttonEdit" onclick="editPost('${doc.id}', '${doc.data().text}')">Edit</button></td>
-					
+					<td><button class="buttonlike" onclick="like('${doc.id}')">Like</button></td>
                 </tr> `
 
             });
+
         });
         //document.querySelector(".buttonDelete").addEventListener("click", deletePost);
     }
+
 };
 
-// Initialize Cloud Firestore through Firebase
-let db = firebase.firestore();
 //Funcion para postear
 function post() {
     let posts = document.querySelector('.post').value;
+    let user = firebase.auth().currentUser;
     db.collection('table').add({
+            displayName: user.displayName,
             text: posts,
         })
         .then(function(docRef) {
@@ -184,20 +188,29 @@ function deletePost(id) {
 function editPost(id, text) {
     document.querySelector(".post").value = text;
 
-    let washingtonRef = db.collection("table").doc(id);
-    let posts = document.querySelector(".post").value;
-    return washingtonRef.update({
-            text: posts,
-        })
-        .then(function() {
-            console.log("Document successfully updated!");
-            document.querySelector(".post").value = "";
+    //  btn.innerHTML = "Editar";
 
-        })
-        .catch(function(error) {
-            // The document probably doesn't exist.
-            console.error("Error updating document: ", error);
-        });
+    function editP() {
+        let washingtonRef = db.collection("table").doc(id);
+        let posts = document.querySelector(".post").value;
+        return washingtonRef.update({
+
+                text: posts,
+            })
+            .then(function() {
+                console.log("Document successfully updated!");
+                // btn.innerHTML = "Guardar Edición";
+                document.querySelector(".post").value = "";
+                //     btn.innerHTML = "Post";
+
+            })
+            .catch(function(error) {
+                // The document probably doesn't exist.
+                console.error("Error updating document: ", error);
+            });
+
+    }
+    document.querySelector(".buttonShowEdit").addEventListener("click", editP);
 }
 document.querySelector(".showEdit").addEventListener("click", editPost);
 
@@ -209,6 +222,7 @@ const close = () => {
         .auth()
         .signOut()
         .then(function() {
+            signOutChange()
             console.log('Saliendo... :)');
         })
         .catch(function(error) {

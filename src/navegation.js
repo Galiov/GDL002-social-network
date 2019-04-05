@@ -22,11 +22,12 @@ window.onpopstate = () => {
         document.querySelector("#changeTimeline") && document.querySelector("#changeTimeline").addEventListener("click", showContentChange);
         document.querySelector("#changeSignUp") && document.querySelector("#changeSignUp").addEventListener("click", signUpChange);
         callRegisterButton();
+        callHomepageChange();
     }, 0);
 }
 
 // PRUEBA ADDEVENTLISTENER
-const signInButton = document.querySelector('.sign-in-button');
+const signInButton = document.querySelector('.sign-in-button')
 signInButton.addEventListener('click', enter);
 
 function callRegisterButton() {
@@ -47,4 +48,15 @@ function signUpChange() {
 }
 document.querySelector("#changeSignUp").addEventListener("click", signUpChange);
 
-document.querySelector('.buttonPost').addEventListener('click', post);
+function homepageChange() {
+    window.location.hash = "homepage"
+}
+
+function callHomepageChange() {
+    document.querySelector("#changeHomepage").addEventListener("click", homepageChange);
+}
+
+function signOutChange() {
+    console.log("Hola3")
+    window.location.hash = "homepage"
+}
