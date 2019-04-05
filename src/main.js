@@ -26,6 +26,7 @@ const verification = () => {
 	let user = firebase.auth().currentUser;
 	user.updateProfile({
 		displayName: document.querySelector('.name').value,
+		phoneNumber: document.querySelector('.country').value,
 	});
 
 	user
@@ -76,9 +77,11 @@ const observador = () => {
 			showContent(user);
 			// User is signed in.
 			let displayName = user.displayName;
+			let phoneNumber = user.phoneNumber;
 			let email = user.email;
 			console.log(user);
 			console.log(user.emailVerified);
+			console.log(user.phoneNumber);
 			let emailVerified = user.emailVerified;
 			let photoURL = user.photoURL;
 			let isAnonymous = user.isAnonymous;
@@ -130,7 +133,7 @@ const showContent = user => {
                 console.log(`${doc.id} => ${doc.data().text}`);
                 table.innerHTML += `
                 <tr>
-                    <th> ${doc.data().displayName}</th> 
+                    <th> ${doc.data().displayName} <br> ${doc.data().phoneNumber} </th> 
                     <td> ${doc.data().text}</td>
 
                     <td><button class="buttonDelete" onclick="deletePost('${doc.id}')">Delete</button></td>
@@ -155,6 +158,7 @@ const post = () => {
 	let like = 0;
 	db.collection('table')
 		.add({
+			country: user.phoneNumber,
 			displayName: user.displayName,
 			text: posts,
 			like: like,
@@ -170,7 +174,9 @@ const post = () => {
 
 //borrar datos
 const deletePost = (id) => {
-	db.collection('table')
+	let confirmDelete = confirm("Seguro que quieres eliminar este post?");
+	if (confirmDelete == true) {
+		db.collection('table')
 		.doc(id)
 		.delete()
 		.then(function() {
@@ -179,6 +185,7 @@ const deletePost = (id) => {
 		.catch(function(error) {
 			console.error('Error removing document: ', error);
 		});
+	}	
 }
 
 //editar datos
