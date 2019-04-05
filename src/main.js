@@ -8,6 +8,7 @@ const enter = () => {
         .catch(function(error) {
             // Handle Errors here.
             let errorCode = error.code;
+            console(errorCode);
             let errorMessage = error.message;
             // ...
             alert(errorMessage);
@@ -26,7 +27,7 @@ const verification = () => {
         .then(function() {
             // Email sent.
             alert(
-                'Te hemos enviado un código de verificación, por favor revisa tu bandeja para poder ingresar',
+                'Te hemos enviado un código de verificación, por favor revisa tu bandeja para poder ingresar'
             );
             console.log('Enviando correo');
         })
@@ -57,7 +58,8 @@ const register = () => {
 		})
 		.catch(function(error) {
 			// Handle Errors here.
-			let errorCode = error.code;
+            let errorCode = error.code;
+            console(errorCode)
 			let errorMessage = error.message;
 			// ...
 			alert(errorMessage);
@@ -96,7 +98,7 @@ const observador = () => {
 observador();
 
 //Funcion que muestra contenido a los usuarios registrados
-const showContent = user => {
+const showContent = (user) => {
     let user1 = user;
     let content = document.querySelector('#content');
     if (user1.emailVerified) {
@@ -120,7 +122,8 @@ const showContent = user => {
         </table>
         <button class="sign-out-button">Sign Out</button>
 
-		`;
+        `//Funcion de boton para postear
+        document.querySelector('.buttonPost').addEventListener('click', post);
         const signOutButton = document.querySelector('.sign-out-button');
         signOutButton.addEventListener('click', close);
         let table = document.querySelector('.table');
@@ -204,7 +207,7 @@ function editPost(id, text) {
 
     }
 }
-
+  
 
 //Funcion de boton para cerrar sesion
 const close = () => {
@@ -212,6 +215,7 @@ const close = () => {
         .auth()
         .signOut()
         .then(function() {
+            signOutChange()
             console.log('Saliendo... :)');
         })
         .catch(function(error) {
