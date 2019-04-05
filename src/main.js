@@ -4,6 +4,53 @@ let db = firebase.firestore();
 //Funcion para entrar a los usuarios ya registrados
 const enter = () => {
 
+    let emailSignIn = document.querySelector('.mail').value;
+    let passwordSignIn = document.querySelector('.password').value;
+    firebase
+        .auth()
+        .signInWithEmailAndPassword(emailSignIn, passwordSignIn)
+        .catch(function(error) {
+            // Handle Errors here.
+            let errorCode = error.code;
+            console(errorCode);
+            let errorMessage = error.message;
+            // ...
+            alert(errorMessage);
+            console.log(errorMessage);
+		});
+		showContent(user);
+};
+
+
+
+//Funcion para verificar el correo electronico del usuario
+const verification = () => {
+    let user = firebase.auth().currentUser;
+    user
+        .sendEmailVerification()
+        .then(function() {
+            // Email sent.
+            alert(
+                'Te hemos enviado un código de verificación, por favor revisa tu bandeja para poder ingresar'
+            );
+            console.log('Enviando correo');
+        })
+        .catch(function(error) {
+            // An error happened.
+        });
+};
+
+
+//Funcion para registrar usuarios nuevos
+const register = () => {
+	let email = document.querySelector('.mailSignUp').value;
+	let password = document.querySelector('.passwordSignUp').value;
+	//	let name = document.querySelector('.name').value;
+
+	console.log(email);
+	console.log(password);
+
+
 	let user = firebase.auth().currentUser;
 	let emailSignIn = document.querySelector('.mail').value;
 	let passwordSignIn = document.querySelector('.password').value;
@@ -12,7 +59,8 @@ const enter = () => {
 		.signInWithEmailAndPassword(emailSignIn, passwordSignIn)
 		.catch(function(error) {
 			// Handle Errors here.
-			let errorCode = error.code;
+            let errorCode = error.code;
+            console(errorCode)
 			let errorMessage = error.message;
 			// ...
 			alert(errorMessage);
@@ -98,7 +146,7 @@ const observador = () => {
 observador();
 
 //Funcion que muestra contenido a los usuarios registrados
-const showContent = user => {
+const showContent = (user) => {
     let user1 = user;
     let content = document.querySelector('#content');
     if (user1.emailVerified) {
