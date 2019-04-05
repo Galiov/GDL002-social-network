@@ -17,8 +17,9 @@ const enter = () => {
 			alert(errorMessage);
 			console.log(errorMessage);
 		});
-	showContent(user);
+		showContent(user);
 };
+
 
 //Funcion para verificar el correo electronico del usuario
 const verification = () => {
@@ -97,7 +98,7 @@ const observador = () => {
 observador();
 
 //Funcion que muestra contenido a los usuarios registrados
-const showContent = user => {
+const showContent = (user) => {
     let user1 = user;
     let content = document.querySelector('#content');
     if (user1.emailVerified) {
