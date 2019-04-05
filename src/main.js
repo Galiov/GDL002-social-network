@@ -109,7 +109,7 @@ const showContent = user => {
         <table class="tablePost my-3">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
+                    <th scope="col">Nombre Usuario</th>
                     <th scope="col">Post</th>
                     <th scope="col">Eliminar</th>
                     <th scope="col">Editar</th>
