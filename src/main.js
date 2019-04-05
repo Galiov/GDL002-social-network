@@ -3,7 +3,6 @@ let db = firebase.firestore();
 
 //Funcion para entrar a los usuarios ya registrados
 const enter = () => {
-
 	let user = firebase.auth().currentUser;
 	let emailSignIn = document.querySelector('.mail').value;
 	let passwordSignIn = document.querySelector('.password').value;
