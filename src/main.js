@@ -3,7 +3,6 @@ let db = firebase.firestore();
 
 //Funcion para entrar a los usuarios ya registrados
 const enter = () => {
-
     let user = firebase.auth().currentUser;
     let emailSignIn = document.querySelector('.mail').value;
     let passwordSignIn = document.querySelector('.password').value;
@@ -12,7 +11,6 @@ const enter = () => {
         .signInWithEmailAndPassword(emailSignIn, passwordSignIn)
         .catch(function(error) {
             // Handle Errors here.
-            let errorCode = error.code;
             let errorMessage = error.message;
             // ...
             alert(errorMessage);
@@ -20,6 +18,7 @@ const enter = () => {
         });
     showContent(user);
 };
+
 
 //Funcion para verificar el correo electronico del usuario
 const verification = () => {
@@ -33,7 +32,7 @@ const verification = () => {
         .then(function() {
             // Email sent.
             alert(
-                'Te hemos enviado un código de verificación, por favor revisa tu bandeja para poder ingresar',
+                'Te hemos enviado un código de verificación, por favor revisa tu bandeja para poder ingresar'
             );
             console.log('Enviando correo');
         })
@@ -76,9 +75,11 @@ const observador = () => {
             showContent(user);
             // User is signed in.
             let displayName = user.displayName;
+            let phoneNumber = user.phoneNumber;
             let email = user.email;
             console.log(user);
             console.log(user.emailVerified);
+            console.log(user.phoneNumber);
             let emailVerified = user.emailVerified;
             let photoURL = user.photoURL;
             let isAnonymous = user.isAnonymous;
@@ -95,7 +96,7 @@ const observador = () => {
 observador();
 
 //Funcion que muestra contenido a los usuarios registrados
-const showContent = user => {
+const showContent = (user) => {
     let user1 = user;
     let content = document.querySelector('#content');
     if (user1.emailVerified) {
@@ -132,12 +133,11 @@ const showContent = user => {
                 <tr>
                     <th> ${doc.data().displayName}</th> 
                     <td> ${doc.data().text}</td>
-                    <th> ${doc.data().ja}</th> 
 
                     <td><button class="buttonDelete" onclick="deletePost('${doc.id}')">Delete</button></td>
 					<td><button class="buttonEdit" onclick="editPost('${doc.id}', '${doc.data().text}')">Edit</button></td>
 					<td><button class="buttonLike" id='${doc.id}' onclick="likes('${doc.id}', '${doc.data().like}')">Like</button></td>
-                    </tr> `
+                    </tr> `;
 
             });
 
@@ -168,20 +168,23 @@ const post = () => {
         .catch(function(error) {
             console.error('Error adding document: ', error);
         });
-}
+};
 
 //borrar datos
 const deletePost = (id) => {
-    db.collection('table')
-        .doc(id)
-        .delete()
-        .then(function() {
-            console.log('Document successfully deleted!');
-        })
-        .catch(function(error) {
-            console.error('Error removing document: ', error);
-        });
-}
+    let confirmDelete = confirm("Seguro que quieres eliminar este post?");
+    if (confirmDelete == true) {
+        db.collection('table')
+            .doc(id)
+            .delete()
+            .then(function() {
+                console.log('Document successfully deleted!');
+            })
+            .catch(function(error) {
+                console.error('Error removing document: ', error);
+            });
+    }
+};
 
 //editar datos
 const editPost = (id, text) => {
@@ -208,7 +211,7 @@ const editPost = (id, text) => {
             });
     }
     document.querySelector('.buttonShowEdit').addEventListener('click', editP);
-}
+};
 
 const likes = (id, likes) => {
     likes++;
@@ -234,7 +237,7 @@ const likes = (id, likes) => {
         // The document probably doesn't exist.
         console.error('Error updating document: ', error);
     });
-}
+};
 
 //Funcion de boton para cerrar sesion
 const close = () => {
