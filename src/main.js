@@ -1,6 +1,6 @@
 // Initialize Cloud Firestore through Firebase
 let db = firebase.firestore();
-let user = firebase.auth().currentUser;
+//let user = firebase.auth().currentUser;
 
 //Funcion para entrar a los usuarios ya registrados
 const enter = () => {
