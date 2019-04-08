@@ -248,4 +248,3 @@ function close() {
             console.log(error);
         });
 };
-console.log(signOutChange());
