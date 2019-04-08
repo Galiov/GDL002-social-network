@@ -24,24 +24,22 @@ const enter = () => {
 
 //Funcion para verificar el correo electronico del usuario
 const verification = () => {
-	let user = firebase.auth().currentUser;
-	user.updateProfile({
-		displayName: document.querySelector('.name').value,
-		phoneNumber: document.querySelector('.country').value,
-	});
-
-	user
-		.sendEmailVerification()
-		.then(function() {
-			// Email sent.
-			alert(
-				'Te hemos enviado un código de verificación, por favor revisa tu bandeja para poder ingresar'
-			);
-			console.log('Enviando correo');
-		})
-		.catch(function(/*error*/) {
-			// An error happened.
-		});
+    let user = firebase.auth().currentUser;
+    user.updateProfile({
+        displayName: document.querySelector('.name').value,
+    });
+    user
+        .sendEmailVerification()
+        .then(function() {
+            // Email sent.
+            alert(
+                'Te hemos enviado un código de verificación, por favor revisa tu bandeja para poder ingresar'
+            );
+            console.log('Enviando correo');
+        })
+        .catch(function(error) {
+            // An error happened.
+        });
 };
 
 //Funcion para registrar usuarios nuevos
@@ -138,7 +136,6 @@ const showContent = (user) => {
 					<td><button class="buttonEdit" onclick="editPost('${doc.id}', '${doc.data().text}')">Edit</button></td>
 					<td><button class="buttonLike" id='${doc.id}' onclick="likes('${doc.id}', '${doc.data().like}')">Like</button></td>
                 </tr> `;
-
             });
 
             document.querySelector('.buttonPost').addEventListener('click', post);
@@ -208,27 +205,25 @@ const editPost = (id, text) => {
 	document.querySelector('.buttonShowEdit').addEventListener('click', editP);
 };
 
-
 const likes = (id, likes) => {
-	likes++;
+    likes++;
 
-	likes = parseInt(likes);
-	let washingtonRef = db.collection('table').doc(id);
+    likes = parseInt(likes);
+    let washingtonRef = db.collection('table').doc(id);
 
-	return washingtonRef
-		.update({
-			like: likes,
-		})
-		.then(function() {
-			let washingtonRef = db.collection('table').doc(id).id;
+    return washingtonRef
+        .update({
+            like: likes,
+        })
+        .then(function() {
+            let washingtonRef = db.collection('table').doc(id).id;
 
-			let buttonLike = document.getElementById(washingtonRef);
-			buttonLike.innerHTML += ' ' + likes;
-		})
-		.then(function() {
-			console.log('Document successfully updated!');
-		})
-
+            let buttonLike = document.getElementById(washingtonRef);
+            buttonLike.innerHTML += ' ' + likes;
+        })
+        .then(function() {
+            console.log('Document successfully updated!');
+        })
 		.catch(function(error) {
 			// The document probably doesn't exist.
 			console.error('Error updating document: ', error);
@@ -251,4 +246,3 @@ const close = () => {
 		});
 };
 console.log(signOutChange());
-
