@@ -14,16 +14,17 @@ body {
 h1 {
     font-family: 'Pacifico', cursive;
     color: #80285D;
-    font-size: 4em;
+    font-size: 7vw;
     text-align: center;
-    width: auto;
+    margin: 0;
 }
 
 h2 {
     font-family: 'Pacifico', cursive;
     color: #80285D;
-    font-size: 3em;
+    font-size: 7vw;
     text-align: center;
+    margin: 0;
     width: auto;
 }
 
