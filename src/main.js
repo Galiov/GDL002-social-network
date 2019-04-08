@@ -44,7 +44,7 @@ const verification = () => {
 
 //Funcion para registrar usuarios nuevos
 const register = () => {
-    /*let user =*/ firebase.auth().currentUser;
+    let user = firebase.auth().currentUser;
     let email = document.querySelector('.mailSignUp').value;
     let password = document.querySelector('.passwordSignUp').value;
 
@@ -69,7 +69,7 @@ const register = () => {
 
 //Funcion para observar todo lo que esta haciendo el codigo, registro, entrada, salida, usuario, etc.
 const observador = () => {
-	/*let user = */ firebase.auth().currentUser;
+	let user = firebase.auth().currentUser;
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {
 			console.log('Existe Usuario activo');
