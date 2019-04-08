@@ -34,7 +34,7 @@ const verification = () => {
 		.then(function() {
 			// Email sent.
 			alert(
-				'Te hemos enviado un código de verificación, por favor revisa tu bandeja para poder ingresar',
+				'Te hemos enviado un código de verificación, por favor revisa tu bandeja para poder ingresar'
 			);
 			console.log('Enviando correo');
 		})
@@ -104,8 +104,6 @@ const showContent = (user) => {
     if (user1.emailVerified) {
         content.innerHTML = `
 		<p>Welcome to WoTravel!</p>
-		<section class="user-profile"></section>
-		<br>
 		<input type="text" name="" id="" class="post" placeholder="New post" />
         <button class="buttonPost" >Post</button>
         <button class="buttonShowEdit" >Save Edit</button>
@@ -133,13 +131,12 @@ const showContent = (user) => {
                 console.log(`${doc.id} => ${doc.data().text}`);
                 table.innerHTML += `
                 <tr>
-                    <th> ${doc.data().displayName} <br> ${doc.data().phoneNumber} </th> 
+                    <th> ${doc.data().displayName} </th> 
                     <td> ${doc.data().text}</td>
-
                     <td><button class="buttonDelete" onclick="deletePost('${doc.id}')">Delete</button></td>
 					<td><button class="buttonEdit" onclick="editPost('${doc.id}', '${doc.data().text}')">Edit</button></td>
 					<td><button class="buttonLike" id='${doc.id}' onclick="likes('${doc.id}', '${doc.data().like}')">Like</button></td>
-                </tr> `
+                </tr> `;
 
             });
 
@@ -158,7 +155,6 @@ const post = () => {
 	let like = 0;
 	db.collection('table')
 		.add({
-			country: user.phoneNumber,
 			displayName: user.displayName,
 			text: posts,
 			like: like,
@@ -170,7 +166,7 @@ const post = () => {
 		.catch(function(error) {
 			console.error('Error adding document: ', error);
 		});
-}
+};
 
 //borrar datos
 const deletePost = (id) => {
@@ -186,7 +182,7 @@ const deletePost = (id) => {
 			console.error('Error removing document: ', error);
 		});
 	}	
-}
+};
 
 //editar datos
 const editPost = (id, text) => {
@@ -213,7 +209,7 @@ const editPost = (id, text) => {
 			});
 	}
 	document.querySelector('.buttonShowEdit').addEventListener('click', editP);
-}
+};
 
 const likes = (id, likes) => {
 	likes++;
@@ -239,7 +235,7 @@ const likes = (id, likes) => {
 			// The document probably doesn't exist.
 			console.error('Error updating document: ', error);
 		});
-}
+};
 
 //Funcion de boton para cerrar sesion
 const close = () => {
