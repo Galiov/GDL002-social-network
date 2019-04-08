@@ -4,13 +4,13 @@
 
 Las redes sociales surgen con la Web 2.0 la cual a diferencia de la Web 1.0, permite a los usuarios interactuar y colaborar entre sí. De esta manera surge la idea de las redes sociales en donde cada usuario "tiene una pagina" donde puede publicar contenido y se comunica con otros usuarios.
 
-## Principales usuarios del Producto y la Problematica a resolver
+## Principales usuarios del Producto y la Problemática a resolver
 
 **WoTravel** esta pensado para mujeres entre los 23 y 35 años, que gustan de viajar y que quieren seguridad dentro de sus viajes.
 
-**¿Pero porque hablar de seguridad?,** En México segun las ultimas cifras en 2018, la Organización de las Naciones Unidas (ONU), mediante ONU Mujeres, puso de nueva cuenta la alerta:
+**¿Pero porque hablar de seguridad?,** En México según las ultimas cifras en 2018, la Organización de las Naciones Unidas (ONU), mediante ONU Mujeres, puso de nueva cuenta la alerta:
 
-*“En México, al menos 6 de cada 10 mujeres mexicanas ha enfrentado un incidente de violencia. El 41.3% de las mujeres ha sido víctima de violencia sexual y, en su forma más extrema, nueve mujeres son asesinadas al día“*, de acuerdo con datos estadísticos de distintos organismos. Y esta informacion solo basandonos en las cifras arrojadas en México.
+*“En México, al menos 6 de cada 10 mujeres mexicanas ha enfrentado un incidente de violencia. El 41.3% de las mujeres ha sido víctima de violencia sexual y, en su forma más extrema, nueve mujeres son asesinadas al día“*, de acuerdo con datos estadísticos de distintos organismos. Y esta información solo basándonos en las cifras arrojadas en México.
 
 **¿Y las mujeres viajan solas?** Según la Confederación Española de Agencia de Viajes (CEAV), el 65% de los viajeros que viajan en compañía "de sí mismas" son mujeres. Una cifra que resulta muy llamativa, ya que superan con creces a los hombres, que por lo visto, se siente más rezagados a emprender el camino en soledad. [Otra encuesta](https://news.booking.com/do-not-disturb-more-than-half-of-american-women-travelers-are-going-solo) de la agencia de viajes 'Booking' halló que el 72% de las mujeres estadounidenses lo prefieren. Una tónica que también se repite en el Reino Unido: el 55% de las búsquedas para viajes individuales son féminas de 25 a 34 años que viven en Londres, según la empresa de investigación [Hitwise](https://www.elconfidencial.com/alma-corazon-vida/2019-02-01/mujeres-viajes-solas-hombres-mundo-razones_1784026/).
 
@@ -18,7 +18,45 @@ De acuerdo con la revista [Harvard Business Review](https://www.excelsior.com.mx
 
 Para que la situación haya cambiado en este rubro turístico hay varios factores, como la independencia económica, el aumento en los divorcios, además del descenso en el número de hijos o la inexistencia de ellos, hechos que han provocado que la mujer tenga más tiempo libre sin ninguna responsabilidad que la ate.
 
-**Con toda esta informacion ¿Cual es el problema?** 
+**Con toda esta información ¿Cual es la problemática a resolver con WoTravel?** 
+
+WoTravel quiere ser una herramienta aliada para las mujeres que viajan solas que cuidan de si misma y que buscan otras aliadas dentro de México y fuera del país y que son parte de WoTravel, y con todo esto mas que crear una red social, crear una red de sororidad al momento de viajar.
+
+## Encuentas y Resultados ##
+
+La encuesta fue realizada a 48 mujeres más del 70% entre las edades de 23 a 35 años, las cuales los datos mas relevantes fueron:
+
+* 100% de las mujeres encuestadas del gusta viajar.
+* El 56.3% ha viajado sola.
+* A la mayoria de las muejeres les gusta viajar para conocer lugares nuevos, pero tambien para tener un autodescubrimiento personal.
+* Para más del 60% es importante conocer datos como hospedaje y zonas seguras.
+* Al 87.5% le gustaria saber si más mujeres viajan al mismo lugar y fecha que ellas.
+
+[Click para ingresar a datos de la encuesta](https://forms.gle/R6wzTsbEC8Q94vzH7)
+
+## Diseño ##
+
+La paleta de colores que se utilizó fue decisión de los usuarios, dataptando la paleta de colores a una experiencia confortable para los usuarios.
+
+**Prototipo de Baja Fidelidad**
+
+![image](/imagen/1.jpg)
+![image](/imagen/2.jpg)
+![image](/imagen/3.jpg)
+
+
+
+[Click para ingresar a Prototipado de Alta Fidelidad](https://www.figma.com/proto/FU1enXdnWg6nSUXog47ULBOb/WoTravel?node-id=0%3A1&scaling=scale-down)
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -11,7 +11,7 @@ const enter = () => {
 		.signInWithEmailAndPassword(emailSignIn, passwordSignIn)
 		.catch(function(error) {
 			// Handle Errors here.
-			let errorCode = error.code;
+			//let errorCode = error.code;
 			let errorMessage = error.message;
 			// ...
 			alert(errorMessage);
@@ -19,6 +19,7 @@ const enter = () => {
 		});
 		showContent(user);
 };
+
 
 
 //Funcion para verificar el correo electronico del usuario
@@ -38,14 +39,14 @@ const verification = () => {
 			);
 			console.log('Enviando correo');
 		})
-		.catch(function(error) {
+		.catch(function(/*error*/) {
 			// An error happened.
 		});
 };
 
 //Funcion para registrar usuarios nuevos
 const register = () => {
-    let user = firebase.auth().currentUser;
+    /*let user =*/ firebase.auth().currentUser;
     let email = document.querySelector('.mailSignUp').value;
     let password = document.querySelector('.passwordSignUp').value;
 
@@ -60,7 +61,7 @@ const register = () => {
         })
         .catch(function(error) {
             // Handle Errors here.
-            let errorCode = error.code;
+            //let errorCode = error.code;
             let errorMessage = error.message;
             // ...
             alert(errorMessage);
@@ -70,13 +71,13 @@ const register = () => {
 
 //Funcion para observar todo lo que esta haciendo el codigo, registro, entrada, salida, usuario, etc.
 const observador = () => {
-	let user = firebase.auth().currentUser;
+	/*let user = */ firebase.auth().currentUser;
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {
 			console.log('Existe Usuario activo');
 			showContent(user);
 			// User is signed in.
-			let displayName = user.displayName;
+			/*let displayName = user.displayName;
 			let phoneNumber = user.phoneNumber;
 			let email = user.email;
 			console.log(user);
@@ -86,7 +87,7 @@ const observador = () => {
 			let photoURL = user.photoURL;
 			let isAnonymous = user.isAnonymous;
 			let uid = user.uid;
-			let providerData = user.providerData;
+			let providerData = user.providerData;*/
 			// ...
 		} else {
 			// User is signed out.
@@ -184,12 +185,10 @@ const deletePost = (id) => {
 	}	
 };
 
+
 //editar datos
 const editPost = (id, text) => {
 	document.querySelector('.post').value = text;
-
-	//  btn.innerHTML = "Editar";
-
 	function editP() {
 		let washingtonRef = db.collection('table').doc(id);
 		let posts = document.querySelector('.post').value;
@@ -199,9 +198,7 @@ const editPost = (id, text) => {
 			})
 			.then(function() {
 				console.log('Document successfully updated!');
-				// btn.innerHTML = "Guardar Edición";
 				document.querySelector('.post').value = '';
-				//     btn.innerHTML = "Post";
 			})
 			.catch(function(error) {
 				// The document probably doesn't exist.
@@ -210,6 +207,7 @@ const editPost = (id, text) => {
 	}
 	document.querySelector('.buttonShowEdit').addEventListener('click', editP);
 };
+
 
 const likes = (id, likes) => {
 	likes++;
@@ -235,7 +233,8 @@ const likes = (id, likes) => {
 			// The document probably doesn't exist.
 			console.error('Error updating document: ', error);
 		});
-};
+}
+console.log(likes());
 
 //Funcion de boton para cerrar sesion
 const close = () => {
@@ -244,9 +243,12 @@ const close = () => {
 		.signOut()
 		.then(function() {
 			signOutChange();
+			console.log(signOutChange());
 			console.log('Saliendo... :)');
 		})
 		.catch(function(error) {
 			console.log(error);
 		});
 };
+console.log(signOutChange());
+
