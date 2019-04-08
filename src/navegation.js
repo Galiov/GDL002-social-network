@@ -10,6 +10,7 @@ let homepage = `
         `;
 
 let signUp = `
+    <h2>WoTravel</h2>
     <section class="sign-up">
         <input type="text" class="profile-form name" placeholder="Name" />
         <input type="text" class="profile-form country" placeholder="Country" />
@@ -20,8 +21,6 @@ let signUp = `
         <button id="changeHomepage" class="sign-in-button1 changeSignIp">Sign In</button>
     </section>
     `;
-
-//window.onload = () => {location.hash ="#homepage"};
 
 let routes = {
     '': homepage,
